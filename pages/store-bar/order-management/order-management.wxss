@@ -1,0 +1,12 @@
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.items .item{
+  width: 650rpx;
+  margin: 30rpx 0;
+}
+.cell-class {
+  border-radius: 15rpx;
+}

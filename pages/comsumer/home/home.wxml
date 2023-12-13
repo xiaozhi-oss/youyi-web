@@ -1,0 +1,28 @@
+<!--pages/comsumer/home/home.wxml-->
+<view>
+  <view class="search">
+    <van-search custom-class="search-class" value="{{ value }}" placeholder="搜索商品" bind:search="onSearch" />
+  </view>
+  <view class="content">
+    <view class="view-product card-wrap">
+      <van-image bind:click="onGetAllGoods" image-class="image-class" width="150" height="170" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/allGoods.png" />
+      <van-image 
+      bind:click="onGetClassificationGoods"
+      image-class="image-class" width="150" height="170" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/classificationSearch.png" />
+    </view>
+    <van-divider contentPosition="center"><text class="my-font">好物推荐</text></van-divider>
+    <view class="recommend .card-wrap">
+        <view class="card">
+          <van-image image-class="image-class" width="120" height="120" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+          <span>2023春夏新款</span>
+        </view>
+        <view class="card">
+          <van-image image-class="image-class" width="120" height="120" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+          <span>夏⽇百搭不撞款</span>
+        </view>
+    </view>
+    <view class="btn">
+      <van-button class="my-font" custom-class="btn-class" bind:click="onGetAllGoods" type="warning">查看更多</van-button>
+    </view>
+  </view>
+</view>

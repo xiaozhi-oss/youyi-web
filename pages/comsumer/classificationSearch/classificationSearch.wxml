@@ -1,0 +1,85 @@
+<!--pages/comsumer/classificationSearch/classificationSearch.wxml-->
+<view class="container">
+  <view class="sidebar">
+    <van-sidebar bind:change="onChangeNav" style="height: {{windowHeight}}px;" active-key="{{ item.id }}">
+      <van-sidebar-item data-id="{{ item.id }}" wx:for="{{ productTypes }}" wx:key="id" title="{{ item.name }}" />
+    </van-sidebar>
+  </view>
+  <scroll-view scroll-y="true" 
+  bindscrolltolower="onScrollToLower" style="height: {{windowHeight }}px;">
+    <view class="products">
+      <block wx:for="{{ products }}" wx:key="id">
+        <view class="p-card">
+          <view class="card-image">
+            <van-image image-class="card-img-class" width="110" height="110" src="{{ item.url }}" />
+          </view>
+          <view class="info">
+            <span>{{ item.title }}</span>
+            <view class="add-btn">
+              <van-icon data-item="{{ item }}" bind:click="addProductToCart" name="plus" size="40px" />
+            </view>
+            <view class="price">
+              <van-icon size="20px" name="cash-o" />
+              <span>{{ item.price }}</span>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="footer-show">
+      <text wx:if="{{ footerShow }}">哎呀，到底了~~~</text>
+      <van-loading wx:if="{{ loading }}" color="#FF9393" type="spinner" size="30px">
+        <text style="color: #FF9393;">加载中...</text>
+      </van-loading>
+    </view>
+    <view wx:if="{{ products.length === 0 }}" class="footer-show">
+      <text>商家正在加货~~~</text>
+    </view>
+  </scroll-view>
+  <view class="my-cart-con">
+    <view class="my-cart">
+      <van-icon name="shopping-cart-o" bind:tap="onOpenCart" size="80rpx" info="{{ cartInfo.number }}" />
+      <view class="total-price">
+        <span>合计：<text style="color: red;">¥ {{ cartInfo.totalPrice }}</text></span>
+      </view>
+      <view class="settlement-button">
+        <span>去结算</span>
+      </view>
+    </view>
+  </view>
+  <view class="cart-content">
+    <van-popup show="{{ cartShow }}" round position="bottom" custom-style="height: 70%;margin: 0 27rpx 151rpx; width: 700rpx;   padding-top: 70rpx;border-radius: 60rpx;" overlay="{{ false }}" z-index="0" bind:close="onOpenCart" closeable="true" root-portal="true">
+      <scroll-view scroll-y="true" style="height: 100%;">
+        <view class="products">
+          <block wx:for="{{ cartInfo.products }}" wx:key="index">
+            <view class="p-card">
+              <view class="card-image">
+                <van-image image-class="card-img-class" width="130" height="130" src="{{ item.url }}" />
+              </view>
+              <view class="info">
+                <view><span>{{ item.title }}</span></view>
+                <view class="add-btn">
+                  <van-stepper data-id="{{ item.id }}" value="{{ item.quantity }}" bind:blur="onQuantityChange" bind:plus="onQuantityPush" bind:minus="onQuantityMinus" />
+                </view>
+                <view class="price">
+                  <view>
+                    <view>
+                      <van-icon size="20px" name="cash-o" />
+                      <span>{{ item.price }}</span>
+                    </view>
+                    <van-button
+                    bind:click="onDeleteProductForCart" data-id="{{ item.id }}"
+                     round type="warning">删除</van-button>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </block>
+          <view wx:if="{{ cartInfo.number === 0}}">
+              <text>空空如也，快去购物吧~~~</text>
+            </view>
+        </view>
+      </scroll-view>
+    </van-popup>
+  </view>
+</view>

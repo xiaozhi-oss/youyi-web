@@ -1,0 +1,31 @@
+page {
+  /* 全局背景设置 */
+  background: #FFAFBD;
+  background: -webkit-linear-gradient(to bottom, #FCCDB2, #eeeded);
+  background: linear-gradient(to bottom, #FCCDB2, #eeeded);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+  Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei',
+  sans-serif;
+}
+
+.my-font {
+  font-family:"华文彩云";/*设置字体*/
+  font-weight:bolder; /*设置字体粗细*/
+  -webkit-text-stroke:1px #a1a1a1;        /*文字描边*/
+  -webkit-text-fill-color:transparent;    /*设置文字的填充颜色*/
+}
+.box-radius {
+  border-radius: 50rpx;
+}
+.img-class {
+  margin-top: 5rpx;
+  border-radius: 50rpx;
+}
+
+/* set cells border for first and last to randius */
+.first-bar {
+  border-radius: 30rpx 30rpx 0 0;
+}
+.last-bar {
+  border-radius: 0 0 30rpx 30rpx;
+}

@@ -1,0 +1,40 @@
+/* 滑动 cell */
+.van-swipe-cell__right {
+  display: flex;
+}
+.cell-btn-class {
+  height: 100% !important;
+}
+
+/* cell 内容 */
+.cell-group-class {
+  margin: 0 !important;
+}
+.name-icon {
+  height: 65rpx;
+  width: 65rpx;
+  border-radius: 30rpx;
+  background-color: #FCCDB2;
+  color: #FF9393;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+
+/* 底部添加按钮 */
+.addAdressBtn {
+  position: fixed;
+  bottom: 0rpx;
+  width: 100%;
+  background-color: #fff;
+  padding-bottom: 40rpx;
+  padding-top: 15rpx;
+}
+.addAdressBtnClass {
+  width: 95% !important;
+  height: 80rpx !important;
+  background-color: #FF6A00 !important;
+}

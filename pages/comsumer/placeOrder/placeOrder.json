@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index",
+    "van-submit-bar": "@vant/weapp/submit-bar/index"
+  }
+}

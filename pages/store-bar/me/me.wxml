@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="user-info">
+    <view class="user-con">
+      <van-image round image-class="img-class" width="6rem" height="6rem" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Precious" />
+      <view class="name">
+        <text class="my-font">用户12345</text>
+      </view>
+    </view>
+    <view class="up-btn">
+      <text>修改</text>
+    </view>
+  </view>
+  <view class="ohter-info">
+    <van-cell custom-class="first-bar" size="large" is-link="true" url="">
+      <view slot="title">
+        <view class="van-cell-text">
+          <text>客户消息</text>
+          <van-icon info-class='i-class' name="chat-o" info="99+" />
+        </view>
+      </view>
+    </van-cell>
+    <van-cell is-link="true" url="">
+      <view slot="title">
+        <view class="van-cell-text">
+          <text>预约信息</text>
+          <van-icon info-class='i-class' name="chat-o" info="99+" />
+        </view>
+      </view>
+    </van-cell>
+    <van-cell title="添加管理账号" is-link="true" url="" />
+    <van-cell custom-class="last-bar" title="用户管理" is-link="true" url="" />
+  </view>
+  <view class="logout-btn">
+    <van-button custom-class="btn-class" bind:click="onLogout" color="#FF9393" block>退出登录</van-button>
+  </view>
+</view>

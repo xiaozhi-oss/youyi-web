@@ -1,0 +1,78 @@
+/* pages/comsumer/reservationInfo/reservationInfo.wxss */
+.container {
+  padding: 100rpx;
+}
+.container > view {
+  margin-bottom: 50rpx;
+}
+.box-radius {
+  border-radius: 200rpx ;
+}
+.datermine-btn {
+  display: flex;
+  justify-content: center;
+}
+.datermine-btn > view {
+  margin: 40rpx;
+}
+
+
+/* 美甲师 */
+.item {
+  display: flex;
+  flex-direction: column;
+  width: 700rpx;
+  margin: 50rpx auto;
+}
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 50rpx 50rpx 0 0;
+  /* background-color: #FAF4F4; */
+  background-color: #FFCCB0;
+  border: 0 1rpx solid #FED2B9;
+  padding: 20rpx;
+  padding-bottom: 0px;
+}
+.top-bar .title {
+  display: flex;
+  align-items: center;
+}
+/* .reservation-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+} */
+.staff-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20rpx;
+}
+.staff-info > text:first-child {
+  font-size: 40rpx;
+  margin-bottom: 20rpx;
+}
+.info-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FAF4F4;
+  padding: 20rpx;
+  border-radius: 0 0 50rpx 50rpx;
+  border: 0 1rpx solid #FED2B9;
+}
+
+.info-bar text {
+  font-size: 30rpx;
+}
+
+/* Portfolio */
+.works {
+  padding: 20rpx;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  margin: 10rpx 0;
+}

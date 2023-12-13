@@ -1,0 +1,8 @@
+<view class="container">
+  <view class="image-card"></view>
+  <view class="title"></view>
+  <!-- 商品规格 -->
+  <view class="specification"></view>
+  <!-- 商品详情 -->
+  <view class="details"></view>
+</view>

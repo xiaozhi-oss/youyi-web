@@ -1,0 +1,90 @@
+{
+  "entryPagePath": "pages/comsumer/home/home",
+  "pages": [
+    "pages/user/login/login",
+    "pages/user/register/register",
+    "pages/comsumer/home/home",
+    "pages/comsumer/reservation/reservation",
+    "pages/comsumer/order/order",
+    "pages/comsumer/me/me",
+    "pages/comsumer/allProduct/allProduct",
+    "pages/comsumer/classificationSearch/classificationSearch",
+    "pages/comsumer/productDetail/productDetail",
+    "pages/comsumer/reservationInfo/reservationInfo",
+    "pages/store-bar/index/index",
+    "pages/store-bar/nail-artist-management/nail-artist-management",
+    "pages/store-bar/me/me",
+    "pages/store-bar/order-management/order-management",
+    "pages/store-product-management/listing-product/listing-product",
+    "pages/store-product-management/add-update-product/add-update-product",
+    "pages/store-product-management/product-evaluate/product-evaluate",
+    "pages/store-manicurist-management/add-update-manicurist/add-update-manicurist",
+    "pages/store-order-management/back-order/back-order",
+    "pages/comsumer-me/address/address",
+    "pages/comsumer-me/addUpdateAddress/addUpdateAddress",
+    "pages/comsumer/placeOrder/placeOrder",
+    "pages/comsumer/paymentSuccess/paymentSuccess"
+  ],
+  "tabBar": {
+    "custom": true,
+    "color": "#000000",
+    "selectedColor": "#000000",
+    "backgroundColor": "#000000",
+    "list": [
+      {
+        "pagePath": "pages/comsumer/home/home"
+      },
+      {
+        "pagePath": "pages/comsumer/reservation/reservation"
+      },
+      {
+        "pagePath": "pages/comsumer/order/order"
+      },
+      {
+        "pagePath": "pages/comsumer/me/me"
+      },
+      {
+        "pagePath": "pages/store-bar/index/index"
+      },
+      {
+        "pagePath": "pages/store-bar/nail-artist-management/nail-artist-management"
+      },
+      {
+        "pagePath": "pages/store-bar/order-management/order-management"
+      },
+      {
+        "pagePath": "pages/store-bar/me/me"
+      }
+    ]
+  },
+  "resolveAlias": {
+    "@utils/*": "utils/*",
+    "@pages/*": "pages/*"
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FCCDB2",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index",
+    "van-image": "@vant/weapp/image/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-row": "@vant/weapp/row/index",
+    "van-col": "@vant/weapp/col/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-tabbar": "@vant/weapp/tabbar/index",
+    "van-tabbar-item": "@vant/weapp/tabbar-item/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-loading": "@vant/weapp/loading/index",
+    "van-notify": "@vant/weapp/notify/index",
+    "van-toast": "@vant/weapp/toast/index"
+  }
+}

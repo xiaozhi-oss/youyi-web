@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="items">
+    <view class="item">
+      <van-cell-group inset custom-class="cell-group-class">
+        <block wx:for="{{ addressList }}" wx:key="id">
+          <van-swipe-cell right-width="{{ 162 }}">
+            <van-cell size='large' border="{{ false }}" center title="" label="{{ item.address }}">
+              <view slot="title">
+                <text style="font-weight: bold;">{{ item.recipient }} </text>
+                <text>{{ item.phoneNumber }} </text>
+                <van-tag wx:if="{{ index === 0 }}" type="warning" plain>默认</van-tag>
+              </view>
+              <view slot="icon">
+                <view class="name-icon">
+                  <van-icon wx:if="{{ index === 0 }}" size="1.5rem" name="wap-home-o" />
+                  <text wx:if="{{ index !== 0 }}">郑</text>
+                </view>
+              </view>
+              <view slot="right-icon">
+                <van-icon size='1.3rem' name="edit" data-id="{{ item.id }}" bind:click="onUpdateAddress" />
+              </view>
+            </van-cell>
+            <view slot="right" class="van-swipe-cell__right">
+              <van-button bind:click="onSettingDetault" type="primary" data-index="{{ index }}"custom-class="cell-btn-class">设置为默认</van-button>
+              <van-button bind:click="onDeleteAddress" data-id="{{ item.id }}" custom-class="cell-btn-class" type="danger">删除</van-button>
+            </view>
+          </van-swipe-cell>
+        </block>
+      </van-cell-group>
+    </view>
+  </view>
+</view>
+
+<view class="addAdressBtn">
+  <van-button bind:click="onAddAddress" custom-class="addAdressBtnClass" icon="plus" round block type="warning">添加收货地址</van-button>
+</view>

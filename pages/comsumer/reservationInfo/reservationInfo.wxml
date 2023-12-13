@@ -1,0 +1,97 @@
+<!--pages/comsumer/reservationInfo/reservationInfo.wxml-->
+<view class="container">
+  <view class="user-info">
+    <van-field custom-style="border-radius: 1.5rem;" left-icon="contact-o" size="large" focus placeholder="姓名" />
+    <van-field custom-style="border-radius: 1.5rem;" left-icon="phone-o" size="large" placeholder="手机号" />
+  </view>
+  <view class="selectManicurist">
+    <van-cell title="请选择美甲师" value="{{ selectMainicurist.name }}" custom-class="box-radius" color="#FCCDB2" bind:click="onToManicuristPage" icon="contact-o" right-icon="arrow" is-link="true" />
+  </view>
+  <view>
+    <van-cell title="选择服务时间" custom-class="box-radius" color="#FCCDB2" value="{{ date }}" bind:click="onDatePopupDisplay" icon="notes-o" arrow-direction="down " is-link />
+    <van-calendar show="{{ isDateShow }}" bind:close="onCloseDatePopup" bind:select="onDateSelect" />
+  </view>
+  <view class="datermine-btn">
+    <view>
+      <van-button round custom-class="btn" type="warning" bind:click="onDermine">确定</van-button>
+    </view>
+    <view>
+      <van-button round custom-class="btn" type="warning" bind:click="onCancel">取消</van-button>
+    </view>
+  </view>
+</view>
+<van-popup show="{{ isManicuristShow }}" round position="bottom" custom-style="height: 80%" bind:close="onCloseManicuristPopup">
+  <scroll-view bindscrolltolower="onScrollToLower" scroll-y="true" style="height: 100%;">
+    <view class="items">
+      <view wx:for="{{ manicuristList }}" wx:key="id" class="item">
+        <view class="top-bar">
+          <view class="title">
+            <van-image custom-class="image-class" round width="100px" height="100px" src="{{ item.avgUrl }}" />
+            <view class="staff-info">
+              <text class="my-font">{{ item.name }}</text>
+              <text>从业 {{ item.employmentTime }} 年</text>
+            </view>
+          </view>
+          <view class="reservation-btn">
+            <van-button bind:click="onShowWorkPopup" round type="warning">查看作品</van-button>
+            <van-button data-id="{{ item.id }}" bind:click="onReservationBtnClick" round type="warning">预约</van-button>
+          </view>
+        </view>
+        <view class="info-bar">
+          <view>
+            <van-icon color="#FBAAE2" name="good-job-o" />
+            <text>好评数：{{ item.positiveReviews }}</text>
+          </view>
+          <view>
+            <text>已被预约：{{ item.reservationCount }}</text>
+          </view>
+          <view>
+            <text>作品集：{{ item.portfolioCount }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="footer">
+      <text wx:if="{{ isFooterShow }}">哎呀，已经到底了~~~</text>
+      <van-loading wx:if="{{ loading }}" color="#FF9393" type="spinner" size="30px">
+          <text style="color: #FF9393;">加载中...</text>
+        </van-loading>
+    </view>
+  </scroll-view>
+</van-popup>
+<van-popup show="{{ isWorkShow }}" round position="bottom" custom-style="height: 70%" bind:close="onCloseWorkShowPopup">
+  <scroll-view scroll-y="true" style="height: 100%;">
+    <view class="works">
+      <van-grid gutter="20rpx" column-num="2" border="{{ false }}" square>
+        <van-grid-item use-slot wx:for="{{ 8 }}" wx:key="index" wx:for-item="index">
+          <image style="width: 100%; height: 100px;" src="https://img.yzcdn.cn/vant/apple-{{ index + 1 }}.jpg" />
+        </van-grid-item>
+      </van-grid>
+    </view>
+  </scroll-view>
+</van-popup>
+<van-popup show="{{ false }}" round position="bottom" custom-style="height: 80%" bind:close="onCloseManicuristPopup">
+  <van-tabs active="{{ active }}" swipe-threshold="4">
+  <van-tab title="今天 12-11" >
+    <view>
+      <text>白天 12:30 - 18:30</text>
+      <text> | </text>
+      <text>晚上 19:00 - 21:30</text>
+    </view>
+    <block wx:for="{{ 4 }}">
+      <van-grid border="{{ false }}">
+        <van-grid-item  use-slot wx:for="{{ 4 }}" wx:key="index">
+          <van-button round type="default">12:30</van-button>
+        </van-grid-item>
+      </van-grid>
+    </block>
+  </van-tab>
+  <van-tab title="明天 12-12">内容 2</van-tab>
+  <van-tab title="周三 12-13">内容 3</van-tab>
+  <van-tab title="周四 12-14">内容 4</van-tab>
+  <van-tab title="周五 12-15">内容 5</van-tab>
+</van-tabs>
+</van-popup>
+<!-- 在页面内添加对应的节点 -->
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />

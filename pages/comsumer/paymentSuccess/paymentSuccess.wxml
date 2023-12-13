@@ -1,0 +1,9 @@
+<view class="container">
+  <view class="paymentPng">
+    <van-image width="11rem" height="11rem" fit="contain" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/%E6%94%AF%E4%BB%98%E6%88%90%E5%8A%9F.png" />
+  </view>
+  <view class="footer-btn">
+    <van-button bind:click="onToHomePage" plain round type="warning">返回首页</van-button>
+    <van-button bind:click="onToOrderPage" plain round type="warning">查看订单</van-button>
+  </view>
+</view>

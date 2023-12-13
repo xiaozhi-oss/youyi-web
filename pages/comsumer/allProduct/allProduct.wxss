@@ -1,0 +1,144 @@
+/* pages/comsumer/allProduct/allProduct.wxss */
+.top-image {
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  margin-bottom: 80rpx;
+}
+.products {
+  padding: 0 1.5rem;
+}
+.card-img-class {
+  border-radius: 1.5rem;
+}
+.card-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.p-card {
+  display: flex;
+  background-color: #faded3;
+  border-radius: 1.5rem;
+  padding: 0.5rem;
+  padding-bottom: 0.2rem;
+  margin-bottom: 70rpx;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+.price {
+  margin-bottom: 10rpx;
+}
+.price > view {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.price > span {
+  margin-left: 10px;
+}
+.add-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.footer-show {
+  display: flex;
+  height: 250rpx;
+  justify-content: center;
+}
+
+.my-cart-con {
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+}
+.my-cart {
+  background-color: #fff;
+  border-radius: 50rpx;
+  width: 700rpx;
+  position: fixed;
+  bottom: 40rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.my-cart > van-icon {
+  margin-left: 20rpx;
+}
+.settlement-button {
+  background-color: #FFC3A0;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  border-radius: 0 50rpx 50rpx 0;
+}
+
+
+/* 商品详情页 */
+.p-container {
+  background: rgb(246, 245, 245);
+}
+.p-container .img-con {
+  width: 100%;  
+  border-radius: 20rpx;
+}
+.product-con {
+  padding: 0 20rpx;
+}
+.product-info {
+  margin: 20rpx 0rpx 60rpx 0rpx;
+}
+.product-info .title {
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-bottom: 10rpx;
+}
+.product-info .tip {
+  color: #979797;
+}
+.product-size > text{
+  color: #979797;
+}
+.btn-con {
+  margin: 20rpx 0rpx 60rpx 0rpx;
+}
+.size-btn {
+  width: 150rpx;
+  border-radius: 30rpx !important;
+  margin: 0 10rpx;
+}
+
+/* 评价模块 */
+.user-info {
+  display: flex;
+  align-items: center;
+}
+.user-info > text {
+  margin: 0 20rpx;
+}
+.item-content {
+  background-color: #fff;
+  padding: 10rpx 30rpx 10rpx 30rpx;
+  border-radius: 30rpx;
+}
+.item-content .product-detail {
+  font-size: 24rpx;
+  color: #979797;
+}
+.review-content > view {
+  margin: 10rpx 0rpx 20rpx 0rpx;
+}
+.reviews-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150rpx;
+}

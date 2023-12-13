@@ -1,0 +1,139 @@
+<!--pages/comsumer/allProduct/allProduct.wxml-->
+<view class="container">
+  <scroll-view bindscrolltolower="onScrollToLower" scroll-y="true" style="height: {{windowHeight}}px;">
+    <view class="top-image">
+      <image src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/top.png" mode="heightFix" />
+    </view>
+    <view class="products">
+      <view wx:for="{{ products }}" wx:key="id" class="p-card">
+        <view class="card-image">
+          <van-image lazy-load bind:click="toProductDetail" image-class="card-img-class" width="130" height="130" src="{{ item.url }}" />
+        </view>
+        <view class="info">
+          <span>{{ item.title }}</span>
+          <view class="add-btn">
+            <van-icon data-item="{{ item }}" bind:click="addProductToCart" name="plus" size="40px" />
+          </view>
+          <view class="price">
+            <van-icon size="20px" name="cash-o" />
+            <span>{{ item.price }}</span>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="footer-show">
+      <text wx:if="{{ footerShow }}">哎呀，到底了~~~</text>
+      <van-loading wx:if="{{ loading }}" color="#FF9393" type="spinner" size="30px">
+        <text style="color: #FF9393;">加载中...</text>
+      </van-loading>
+    </view>
+    <view class="my-cart-con">
+      <view class="my-cart">
+        <van-icon bind:tap="onOpenCart" name="shopping-cart-o" size="80rpx" info="{{ cartInfo.number }}" />
+        <view class="total-price">
+          <span>合计：<text style="color: red;">¥ {{ cartInfo.totalPrice }}</text></span>
+        </view>
+        <view class="settlement-button" bind:tap="onCartPlaceOrder">
+          <span>去结算</span>
+        </view>
+      </view>
+    </view>
+    <view class="cart-content">
+      <van-popup show="{{ cartShow }}" round position="bottom" custom-style="height: 70%;margin: 0 27rpx 151rpx; width: 700rpx;   padding-top: 70rpx;border-radius: 60rpx;" overlay="{{ false }}" z-index="0" bind:close="onOpenCart" closeable="true" root-portal="true">
+        <scroll-view scroll-y="true" style="height: 100%;">
+          <view class="products">
+            <block wx:for="{{ cartInfo.products }}" wx:key="id">
+              <view class="p-card">
+                <view class="card-image">
+                  <van-image bind:click="toProductDetail" lazy-load image-class="card-img-class" width="130" height="130" src="{{ item.url }}" />
+                </view>
+                <view class="info">
+                  <span>{{ item.title }}</span>
+                  <view class="add-btn">
+                    <van-stepper data-id="{{ item.id }}" value="{{ item.quantity }}" bind:blur="onQuantityChange" bind:plus="onQuantityPush" bind:minus="onQuantityMinus" />
+                  </view>
+                  <view class="price">
+                    <view>
+                      <view>
+                        <van-icon size="20px" name="cash-o" />
+                        <span>{{ item.price }}</span>
+                      </view>
+                      <van-button bind:click="onDeleteProductForCart" data-id="{{ item.id }}" round type="warning">删除</van-button>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <view wx:if="{{ cartInfo.number === 0}}">
+              <text>空空如也，快去购物吧~~~</text>
+            </view>
+          </view>
+        </scroll-view>
+      </van-popup>
+    </view>
+  </scroll-view>
+</view>
+<van-popup show="{{ isShowProductDetail }}" round root-portal="{{ true }}" position="bottom" custom-style="height: 90%" bind:close="onCloseProductDetailPopup">
+  <scroll-view bindscrolltolower="onReviewScrollToLower" scroll-y="true" style="height: 93%;">
+    <view class="p-container">
+      <image class="img-con" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png" mode="scaleToFill" />
+      <view class="product-con">
+        <view class="product-info">
+          <view class="title">
+            <text>手工穿戴甲 长款高级线条感、轻奢</text>
+          </view>
+          <view class="tip">
+            <text>⾼级感满满，值得拥有</text>
+          </view>
+        </view>
+        <view class="product-size">
+          <van-divider customStyle="color: #FF976A; border-color: #FF976A; font-size: 18px;" contentPosition="center">商品规格</van-divider>
+          <text>尺码</text>
+          <view class="btn-con">
+            <van-button wx:for="{{ sizeList }}" wx:key="index" custom-class="size-btn" type="default">{{ item.name }}</van-button>
+          </view>
+        </view>
+        <view class="product-detail">
+          <van-divider customStyle="color: #FF976A; border-color: #FF976A; font-size: 18px;" contentPosition="center">商品详情</van-divider>
+          <image class="img-con" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/detail.jpg" mode="scaleToFill" />
+        </view>
+        <van-divider customStyle="color: #FF976A; border-color: #FF976A; font-size: 18px;" contentPosition="center">评价</van-divider>
+        <view class="reviews">
+          <view class="items">
+            <view class="item" wx:for="{{ reviewList }}" wx:key="id">
+              <view class="user-info">
+                <van-image round width="4rem" height="4rem" src="{{ item.userInfo.url }}" />
+                <text>{{ item.userInfo.username }}</text>
+                <van-tag round type="warning">我的评价</van-tag>
+              </view>
+              <view class="item-content">
+                <view class="product-detail">
+                  <text>已购：{{ item.size }}</text>
+                </view>
+                <view class="review-content">
+                  <view><text>{{ item.content }}</text></view>
+                  <van-grid square="{{ true }}" gutter="{{ 1 }}" column-num="3" border="{{ false }}">
+                    <van-grid-item use-slot wx:for="{{ item.imgList }}" wx:key="index">
+                      <van-image width="210rpx" height="210rpx" fit="contain" src="{{ item }}" />
+                    </van-grid-item>
+                  </van-grid>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="reviews-footer">
+            <text wx:if="{{ isReviewFooterShow }}">诶呀，到底了呀~~~</text>
+            <van-loading wx:if="{{ reviewLoading }}" color="#FF9393" type="spinner" size="30px">
+              <text style="color: #FF9393;">加载中...</text>
+            </van-loading>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <van-goods-action>
+    <van-goods-action-button color="#FFC3A0" text="加入购物车" type="warning" />
+    <van-goods-action-button color="#FF9B6F" text="立即购买" />
+  </van-goods-action>
+</van-popup>
+<van-toast id="van-toast" />

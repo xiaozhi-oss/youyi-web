@@ -1,0 +1,25 @@
+.logo {
+  text-align: center;
+  margin: 2rem 0;
+}
+.logo .name{
+  margin-top: 1rem;
+}
+.login {
+  margin: 2rem;
+  width: 20rem;
+}
+.login-input {
+  margin-bottom: 0.5rem;
+}
+.footer {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.chebox {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+}

@@ -1,0 +1,29 @@
+<view class="container">
+  <view class="user-info">
+    <view class="user-con">
+      <van-image
+        round
+        image-class="img-class"
+        width="6rem"
+        height="6rem"
+        src="https://img.yzcdn.cn/vant/cat.jpeg"
+      />
+      <view class="name">
+        <text class="my-font">用户12345</text>
+      </view>
+    </view>
+    <view class="up-btn">
+      <text>修改</text>
+    </view>
+  </view>
+  <view class="ohter-info">
+    <van-cell custom-class="first-bar" title="我的预约" is-link="true" url=""/>
+    <van-cell title="意见反馈" is-link="true" url=""/>
+    <van-cell title="关于" is-link="true" url=""/>
+    <van-cell title="客服" is-link="true" url=""/>
+    <van-cell custom-class="last-bar" title="收货地址" is-link="true" url="/pages/comsumer-me/address/address"/>
+  </view>
+  <view class="logout-btn">
+    <van-button custom-class="btn-class" bind:click="onLogout" color="#FF9393" block>退出登录</van-button>
+  </view>
+</view>

@@ -1,0 +1,100 @@
+/* pages/comsumer/classificationSearch/classificationSearch.wxss */
+.container {
+  display: flex;
+  background-color: #fff;
+}
+.sidebar {
+  background-color: #F7F8FA;
+}
+
+.products {
+  padding: 0 25rpx;
+}
+.card-img-class {
+  border-radius: 1.5rem;
+}
+.card-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10rpx;
+}
+.p-card {
+  display: flex;
+  background-color: #faded3;
+  border-radius: 1.5rem;
+  margin: 70rpx 0;
+  padding: 10rpx 18rpx;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 20rpx;
+}
+.price > span {
+  margin-left: 10rpx;
+}
+.add-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.footer-show {
+  display: flex;
+  height: 250rpx;
+  margin: 100rpx 0;
+  justify-content: center;
+}
+
+.my-cart-con {
+  display: flex;
+  justify-content: center;
+}
+.my-cart {
+  background-color: #fff;
+  border-radius: 50rpx;
+  width: 700rpx;
+  position: fixed;
+  left: 30rpx;
+  bottom: 40rpx !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.my-cart > van-icon {
+  margin-left: 20rpx;
+}
+.my-cart {
+  background-color: #fff;
+  border-radius: 50rpx;
+  width: 700rpx;
+  position: fixed;
+  bottom: 170rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.my-cart > van-icon {
+  margin-left: 20rpx;
+}
+.settlement-button {
+  background-color: #FFC3A0;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  border-radius: 0 50rpx 50rpx 0;
+}
+
+.my-cart-con {
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+}
+.price > view {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,0 +1,39 @@
+/* pages/comsumer/home/home.wxss */
+.search {
+  width: 20rem;
+  margin: 2.5rem auto;
+}
+.search-class {
+  border-radius: 2rem;
+}
+.card-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 0 1rem;
+}
+.card {
+  width: 150px;
+  height: 170px;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #ffc3a0;
+}
+.image-class {
+  border-radius: 1.5rem;
+  margin-top: 7px;
+}
+.btn {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+.btn-class {
+  border-radius: 1.5rem !important;
+  border: 1px solid #A8AD91 !important;
+  font-size: 20px !important; /*设置字体大小*/
+  background-color: #dbbba8 !important;
+}

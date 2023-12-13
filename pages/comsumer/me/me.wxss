@@ -1,0 +1,41 @@
+.container {
+  padding: 0 50rpx;
+}
+
+/* user-info */
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFF0E7;
+  border-radius: 30rpx;
+  margin: 40rpx 0;
+  padding: 5rpx 20rpx;
+}
+.user-info .name {
+  font-size: 50rpx;
+  margin-left: 20rpx;
+}
+.user-con {
+  display: flex;
+  align-items: center;
+}
+.up-btn {
+  color: #2E81DD;
+  font-weight: bold;
+}
+
+/* other-info */
+
+
+/* logout */
+.logout-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 300rpx;
+}
+.btn-class {
+  border-radius: 20rpx !important;
+  width: 550rpx !important;
+}
+

@@ -1,0 +1,14 @@
+<!--pages/store/order-management/order-management.wxml-->
+<view class="container">
+  <view class="items">
+    <view class="item">
+      <van-cell custom-class="cell-class" title="待发货订单" is-link />
+    </view>
+    <view class="item">
+      <van-cell custom-class="cell-class" title="已发货订单" is-link />
+    </view>
+    <view class="item">
+      <van-cell custom-class="cell-class" title="售后/退款" is-link />
+    </view>
+  </view>
+</view>

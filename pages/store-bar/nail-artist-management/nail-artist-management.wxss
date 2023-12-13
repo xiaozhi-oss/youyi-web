@@ -1,0 +1,55 @@
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.item {
+  width: 650rpx;
+  background-color: #FEC3AB;
+  border-radius: 50rpx;
+  margin: 50rpx 0;
+}
+.item > .info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx;
+}
+.item .info-left {
+  display: flex;
+  align-items: center;
+}
+.item .info-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20rpx;
+}
+.item .info-text > text:first-child {
+  font-size: 50rpx;
+  margin-bottom: 10rpx;
+}
+.info > text {
+  color: #667CB4;
+  font-weight: bold;
+  margin-right: 15rpx;
+}
+
+.experience {
+  display: flex;
+  justify-content: space-between;
+  background-color: #FAF4F4;
+  border-radius: 50rpx;
+  padding: 20rpx 30rpx;
+}
+
+.experience .delete-btn {
+  color: red;
+  font-weight: bold;
+}
+.add-btn {
+  position: fixed;
+  bottom: 190rpx;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

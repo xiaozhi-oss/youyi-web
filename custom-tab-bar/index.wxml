@@ -1,0 +1,9 @@
+<!--pages/index/index.wxml-->
+<van-tabbar active="{{ active }}" active-color="#ffc3a0" bind:change="onChange">
+  <block wx:if="{{ !isStoreShow }}">
+    <van-tabbar-item wx:for="{{ list }}" wx:key="index" icon="{{ item.icon }}">{{item.text}}</van-tabbar-item>
+  </block>
+  <block wx:if="{{ isStoreShow }}">
+    <van-tabbar-item wx:for="{{ storeList }}" wx:key="index" icon="{{ item.icon }}">{{item.text}}</van-tabbar-item>
+  </block>
+</van-tabbar>

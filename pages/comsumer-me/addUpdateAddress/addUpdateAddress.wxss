@@ -1,0 +1,15 @@
+/* pages/comsumer-me/addUpdateAdress/addUpdateAdress.wxss */
+/* 底部添加按钮 */
+.addAdressBtn {
+  position: fixed;
+  bottom: 0rpx;
+  width: 100%;
+  background-color: #fff;
+  padding-bottom: 40rpx;
+  padding-top: 15rpx;
+}
+.addAdressBtnClass {
+  width: 95% !important;
+  height: 80rpx !important;
+  background-color: #FF6A00 !important;
+}

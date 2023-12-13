@@ -1,0 +1,27 @@
+<view class="container">
+  <scroll-view scroll-y="true" style="height: {{windowHeight - 145}}px;">
+    <view class="items">
+      <view class="item" wx:for="{{ 10 }}" wx:key="index">
+        <view class="info">
+          <view class="info-left">
+            <van-image round width="6rem" height="6rem" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Peanut" />
+            <view class="info-text">
+              <text class="my-font">伊音儿</text>
+              <text>从业五年</text>
+            </view>
+          </view>
+          <text>修改</text>
+        </view>
+        <view class="experience">
+          <text>作品集：21</text>
+          <view class="delete-btn">
+            <text>删除</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="add-btn">
+    <van-button color="#FEC3AB" block>新增美甲师</van-button>
+  </view>
+</view>
