@@ -1,3 +1,4 @@
+const api = require("@utils/api")
 Page({
 
   data: {
@@ -16,6 +17,7 @@ Page({
     })
   },
   onLogin(e) {
+    
     console.log(this.data.phone);
     if (this.data.phone === '1') {
       this.setData({

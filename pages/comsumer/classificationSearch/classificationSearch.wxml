@@ -83,3 +83,4 @@
     </van-popup>
   </view>
 </view>
+<van-toast id="van-toast" />

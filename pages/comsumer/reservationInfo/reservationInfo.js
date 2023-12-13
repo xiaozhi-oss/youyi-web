@@ -12,44 +12,7 @@ Page({
     active: 0,
     // 选择的美甲师
     selectMainicurist: {},
-    manicuristList: [
-      {
-        id: 1,
-        name: '离大谱',
-        employmentTime: '7',
-        positiveReviews: 301,
-        reservationCount: 12,
-        portfolioCount: 34,
-        avgUrl: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Snuggles'
-      },
-      {
-        id: 2,
-        name: '小豹',
-        employmentTime: '7',
-        positiveReviews: 301,
-        reservationCount: 12,
-        PortfolioCount: 34,
-        avgUrl: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Tiger'
-      },
-      {
-        id: 3,
-        name: '小舔',
-        employmentTime: '7',
-        positiveReviews: 301,
-        reservationCount: 12,
-        PortfolioCount: 34,
-        avgUrl: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Smokey'
-      },
-      {
-        id: 4,
-        name: '小八嘎',
-        employmentTime: '7',
-        positiveReviews: 301,
-        reservationCount: 12,
-        PortfolioCount: 34,
-        avgUrl: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Tigger'
-      },
-    ]
+    manicuristList: []
   },
   // 时间 popup 触发事件
   onDatePopupDisplay() {

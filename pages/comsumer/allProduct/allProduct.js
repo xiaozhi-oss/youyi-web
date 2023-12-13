@@ -1,4 +1,5 @@
 import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   /**
@@ -12,37 +13,13 @@ Page({
     loading: false,
     reviewLoading: false,
     isShowProductDetail: false,
+    productCurrent: 1,
     cartInfo: {},
-    sizeList: [
-      {id: 1, name: 'S码'},
-      {id: 1, name: 'M码'},
-      {id: 1, name: 'L码'},
-      {id: 1, name: 'XL码'},
-    ],
+    selelctSizeIndex: 0,
+    sizeList: [ 'S码', 'M码', 'L码', 'XL码' ],
     // 接收后端接收到的商品列表
-    products: [
-      {
-        id: 1,
-        title: `手工穿戴甲 长款高级线条感、轻奢 - 1`,
-        price: 26,
-        url: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
-        specifications: ['S码', 'M码', 'L码']
-      },
-      {
-        id: 2,
-        title: `手工穿戴甲 长款高级线条感、轻奢 - 2`,
-        price: 34,
-        url: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
-        specifications: ['S码', 'M码', 'L码']
-      },
-      {
-        id: 3,
-        title: `手工穿戴甲 长款高级线条感、轻奢 - 3`,
-        price: 67,
-        url: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
-        specifications: ['S码', 'M码', 'L码']
-      }
-    ],
+    products: [],
+    productDetail: {},
     reviewList: [
       {
         id: 1,
@@ -68,17 +45,29 @@ Page({
       }
     ],
   },
+  sizeBtnClick(e) {
+    const index = e.currentTarget.dataset.index
+    this.setData({
+      selelctSizeIndex: index
+    })
+  },
   /**
    * 跳转商品详情页
    */
   toProductDetail(e) {
+    const id = e.currentTarget.dataset.id
+    const products = this.data.products
+    const index = products.findIndex(p => p.id === id)
+    const product = products[index]
     this.setData({
-      isShowProductDetail: true
+      isShowProductDetail: true,
+      productDetail: product,
+      selelctSizeIndex: 0,
     })
   },
   onCloseProductDetailPopup(e) {
     this.setData({
-      isShowProductDetail: false
+      isShowProductDetail: false,
     })
   },
     /**
@@ -200,26 +189,24 @@ Page({
   onScrollToLower(e) {
     if (!this.data.loading && !this.data.footerShow) {
       this.setData({ loading: true });
-      setTimeout(() => {
-        this.setData({ 
-          loading: false,
-        });
-      }, 2000);
       const products = this.data.products
-      setTimeout(() => {
-        for(let i=0; i < 10; i++) {
-          products.push({
-            id: 5,
-            title: '赶紧的下单,看了就给老子买',
-            price: 26,
-            url: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
-            specifications: ['S码', 'M码', 'L码']
-          })
-        }
+      api.getProductList(this.data.productCurrent)
+      .then(res => {
+        const productList = res.data.data
+        let footerShow = true
+        if (productList.length !== 0) {
+          products.push(...productList)
+          footerShow: false
+        } 
         this.setData({
-          products: products
+          products: products,
+          loading: false,
+          footerShow: footerShow
         })
-      }, 2000);
+      })
+      .catch(err => {
+
+      })
     }
   },
   onReviewScrollToLower(e) {
@@ -255,7 +242,6 @@ Page({
     // 获取购物车的商品信息
     const products = this.data.cartInfo.products
     if (products.length === 0) {
-      console.log('进入');
       Toast.fail('购物车为空，请添加商品');
       return
     }
@@ -275,11 +261,23 @@ Page({
     const systemInfo = wx.getSystemInfoSync();
     const app = getApp()
     const globalData = app.globalData;
+    let products = []
+    api.getProductList(this.data.productCurrent).then(res => {
+      products = res.data.data
+      if (products.length === 0) {
+        this.setData({ footerShow: true })
+      }
+      this.setData({ 
+        products: products,
+        productCurrent: this.data.productCurrent + 1
+      })
+    }).catch(err => {
+      // 失败回调
+    })
     this.setData({
       windowHeight: systemInfo.windowHeight,
       cartInfo: globalData.cartInfo,
     });
-    console.log('sdfsdfsd');
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -292,7 +290,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    console.log('进入');
+    
   },
   /**
    * 生命周期函数--监听页面隐藏
