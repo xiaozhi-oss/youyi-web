@@ -7,10 +7,10 @@
     <view class="products">
       <view wx:for="{{ products }}" wx:key="id" class="p-card">
         <view class="card-image">
-          <van-image lazy-load bind:click="toProductDetail" image-class="card-img-class" width="130" height="130" src="{{ item.url }}" />
+          <van-image lazy-load bind:click="toProductDetail" data-id="{{ item.id }}" image-class="card-img-class" width="130" height="130" src="{{ item.url }}" />
         </view>
         <view class="info">
-          <span>{{ item.title }}</span>
+          <span>{{ item.name }}</span>
           <view class="add-btn">
             <van-icon data-item="{{ item }}" bind:click="addProductToCart" name="plus" size="40px" />
           </view>
@@ -45,10 +45,10 @@
             <block wx:for="{{ cartInfo.products }}" wx:key="id">
               <view class="p-card">
                 <view class="card-image">
-                  <van-image bind:click="toProductDetail" lazy-load image-class="card-img-class" width="130" height="130" src="{{ item.url }}" />
+                  <van-image bind:click="toProductDetail" lazy-load data-id="{{ item.id }}" image-class="card-img-class" width="130" height="130" src="{{ item.url }}" />
                 </view>
                 <view class="info">
-                  <span>{{ item.title }}</span>
+                  <span>{{ item.name }}</span>
                   <view class="add-btn">
                     <van-stepper data-id="{{ item.id }}" value="{{ item.quantity }}" bind:blur="onQuantityChange" bind:plus="onQuantityPush" bind:minus="onQuantityMinus" />
                   </view>
@@ -76,21 +76,21 @@
 <van-popup show="{{ isShowProductDetail }}" round root-portal="{{ true }}" position="bottom" custom-style="height: 90%" bind:close="onCloseProductDetailPopup">
   <scroll-view bindscrolltolower="onReviewScrollToLower" scroll-y="true" style="height: 93%;">
     <view class="p-container">
-      <image class="img-con" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png" mode="scaleToFill" />
+      <image class="img-con" src="{{ productDetail.url }}" mode="scaleToFill" />
       <view class="product-con">
         <view class="product-info">
           <view class="title">
-            <text>手工穿戴甲 长款高级线条感、轻奢</text>
+            <text>{{ productDetail.name }}</text>
           </view>
           <view class="tip">
-            <text>⾼级感满满，值得拥有</text>
+            <text>{{ productDetail.miaoshu }}</text>
           </view>
         </view>
         <view class="product-size">
           <van-divider customStyle="color: #FF976A; border-color: #FF976A; font-size: 18px;" contentPosition="center">商品规格</van-divider>
           <text>尺码</text>
           <view class="btn-con">
-            <van-button wx:for="{{ sizeList }}" wx:key="index" custom-class="size-btn" type="default">{{ item.name }}</van-button>
+            <van-button wx:for="{{ productDetail.sizes }}" data-index="{{ index }}" bind:click="sizeBtnClick" color="{{ index === selelctSizeIndex ? '#FF9B6F' : '' }}" wx:key="index" custom-class="size-btn" type="default">{{ item }}</van-button>
           </view>
         </view>
         <view class="product-detail">
