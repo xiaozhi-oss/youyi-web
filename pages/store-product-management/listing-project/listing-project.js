@@ -1,23 +1,18 @@
-// pages/store-product-management/add-update-product/add-update-product.js
+// pages/store-product-management/listing-project/listing-project.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    product: {}
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const product = JSON.parse(options.product)
-    if (Object.keys(product).length !== 0) {
-      this.setData({
-        product: product
-      })
-    }
+
   },
 
   /**

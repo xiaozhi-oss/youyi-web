@@ -1,2 +1,40 @@
-<!--pages/store-product-management/listing-product/listing-product.wxml-->
-<text>pages/store-product-management/listing-product/listing-product.wxml</text>
+<!--pages/comsumer/allProduct/allProduct.wxml-->
+<view class="container">
+  <scroll-view bindscrolltolower="onScrollToLower" scroll-y="true" style="height: {{windowHeight}}px;">
+    <view class="top-image">
+      <image src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/top.png" mode="heightFix" />
+    </view>
+    <view class="products">
+      <view wx:for="{{ products }}" wx:key="id" class="p-card">
+        <view class="card-image">
+          <van-image lazy-load bind:click="toProductDetail" data-id="{{ item.id }}" image-class="card-img-class" width="130" height="130" src="{{ item.url }}" />
+        </view>
+        <view class="info">
+          <span>{{ item.name }}</span>
+          <view class="kuncun-update-btn-class">
+            <text>库存：{{ item.kucun }}</text>
+            <van-button custom-class="btn-class" plain round type="warning" data-product="{{ item }}" bind:click="toAddUpdateProductPage">修改</van-button>
+          </view>
+          <view class="price">
+            <view>
+              <van-icon size="20px" name="cash-o" />
+              <span>{{ item.price }}</span>
+            </view>
+            <view>
+              <van-button custom-class="btn-class" plain round type="danger" data-id="{{ item.id }}" bind:click="onDeleteProduct">删除</van-button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="footer-show">
+      <text wx:if="{{ footerShow }}">哎呀，到底了~~~</text>
+      <van-loading wx:if="{{ loading }}" color="#FF9393" type="spinner" size="30px">
+        <text style="color: #FF9393;">加载中...</text>
+      </van-loading>
+    </view>
+  </scroll-view>
+</view>
+<view class="addAdressBtn">
+  <van-button bind:click="toAddUpdateProductPage" custom-class="addAdressBtnClass" icon="plus" round block type="warning" data-param="{{ item }}">新增商品</van-button>
+</view>

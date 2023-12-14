@@ -12,9 +12,9 @@ Page({
       url: '/pages/store-product-management/product-evaluate/product-evaluate',
     })
   },
-  onToAddOrUpdateProduct(e) {
+  onToListingProject(e) {
     wx.navigateTo({
-      url: '/pages/store-product-management/add-update-product/add-update-product',
+      url: '/pages/store-product-management/listing-project/listing-project',
     })
   },
   onToListingProduct(e) {

@@ -17,10 +17,9 @@
     </view>
   </view>
   <view class="ohter-info">
-    <van-cell custom-class="first-bar" title="我的预约" is-link="true" url=""/>
-    <van-cell title="意见反馈" is-link="true" url=""/>
-    <van-cell title="关于" is-link="true" url=""/>
-    <van-cell title="客服" is-link="true" url=""/>
+    <van-cell custom-class="first-bar" title="我的预约" is-link="true" url="/pages/comsumer-me/my-appointment/my-appointment"/>
+    <!-- <van-cell title="意见反馈" is-link="true" url="/pages/comsumer-me/feedback/feedback"/> -->
+    <van-cell title="客服" is-link="true" url="/pages/comsumer-me/customer-serivce/customer-serivce"/>
     <van-cell custom-class="last-bar" title="收货地址" is-link="true" url="/pages/comsumer-me/address/address"/>
   </view>
   <view class="logout-btn">

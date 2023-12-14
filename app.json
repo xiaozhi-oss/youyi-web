@@ -1,5 +1,5 @@
 {
-  "entryPagePath": "pages/comsumer/home/home",
+  "entryPagePath": "pages/user/login/login",
   "pages": [
     "pages/user/login/login",
     "pages/user/register/register",
@@ -16,14 +16,19 @@
     "pages/store-bar/me/me",
     "pages/store-bar/order-management/order-management",
     "pages/store-product-management/listing-product/listing-product",
-    "pages/store-product-management/add-update-product/add-update-product",
     "pages/store-product-management/product-evaluate/product-evaluate",
     "pages/store-manicurist-management/add-update-manicurist/add-update-manicurist",
     "pages/store-order-management/back-order/back-order",
     "pages/comsumer-me/address/address",
     "pages/comsumer-me/addUpdateAddress/addUpdateAddress",
     "pages/comsumer/placeOrder/placeOrder",
-    "pages/comsumer/paymentSuccess/paymentSuccess"
+    "pages/comsumer/paymentSuccess/paymentSuccess",
+    "pages/comsumer-me/customer-serivce/customer-serivce",
+    "pages/comsumer-me/my-appointment/my-appointment",
+    "pages/comsumer-me/feedback/feedback",
+    "pages/comsumer/viewLogistics/viewLogistics",
+    "pages/store-product-management/listing-project/listing-project",
+    "pages/store-product-management/add-update-product/add-update-product"
   ],
   "tabBar": {
     "custom": true,

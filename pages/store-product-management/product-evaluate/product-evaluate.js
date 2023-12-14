@@ -5,7 +5,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    reviewList: [
+      {
+        id: 1,
+        userInfo: {
+          id: 1,
+          username: '小八嘎',
+          url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Jasmine',
+        },
+        size: 'S码',
+        content: '实在是太好看啦，姐妹们买它',
+        imgList: ["https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/4.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/5.png"]
+      },
+      {
+        id: 2,
+        userInfo: {
+          id: 2,
+          username: '小舔',
+          url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Oscar',
+        },
+        size: 'S码',
+        content: '实在是太好看啦，姐妹们买它',
+        imgList: ["https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/4.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/5.png"]
+      }
+    ],
   },
 
   /**
