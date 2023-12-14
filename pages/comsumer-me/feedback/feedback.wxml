@@ -1,0 +1,11 @@
+<view class="container">
+  <view class="content">
+    <van-field
+    value="{{ message }}"
+    type="textarea"
+    placeholder="请输入留言"
+    autosize
+    border="{{ false }}"
+  />
+  </view>
+</view>

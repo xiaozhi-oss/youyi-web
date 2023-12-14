@@ -1,23 +1,35 @@
-// pages/store-product-management/add-update-product/add-update-product.js
+// pages/comsumer/viewLogistics/viewLogistics.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    product: {}
+    steps: [
+      {
+        text: '5-23 17:30',
+        desc: '【北京市】您的包裹已到达北京市中心',
+      },
+      {
+        text: '步骤二',
+        desc: '描述信息',
+      },
+      {
+        text: '步骤三',
+        desc: '描述信息',
+      },
+      {
+        text: '步骤四',
+        desc: '描述信息',
+      },
+    ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const product = JSON.parse(options.product)
-    if (Object.keys(product).length !== 0) {
-      this.setData({
-        product: product
-      })
-    }
+
   },
 
   /**

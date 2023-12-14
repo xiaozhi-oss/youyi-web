@@ -1,32 +1,23 @@
 <view class="container">
-  <view>
-    <van-image
-      width="19rem"
-      height="10rem"
-      fit="contain"
-      image-class="image-class"
-      src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/store01.png"
-      bind:click="onToProductEvvaluate"
-      />
+  <view class="item" bind:tap="onToProductEvvaluate">
+    <view class="left-font">
+      <text>商品评价</text>
+      <text>点击查看 ></text>
+    </view>
+    <van-image width="10rem" height="10rem" fit="contain" image-class="image-class" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/store01.png"/>
   </view>
-  <view>
-    <van-image
-      width="19rem"
-      height="10rem"
-      fit="contain"
-      image-class="image-class"
-      src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/store02.png"
-      bind:click="onToListingProduct"
-      />
+  <view class="item" bind:tap="onToListingProject">
+    <view class="left-font">
+      <text>项目管理</text>
+      <text>点击查看 ></text>
+    </view>
+    <van-image width="10rem" height="10rem" fit="contain" image-class="image-class" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/store02.png" />
   </view>
-  <view>
-    <van-image
-      width="19rem"
-      height="10rem"
-      fit="contain"
-      image-class="image-class"
-      src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/store03.png"
-      bind:click="onToAddOrUpdateProduct"
-      />
+  <view class="item" bind:tap="onToListingProduct">
+    <view class="left-font">
+      <text>商品管理</text>
+      <text>点击查看 ></text>
+    </view>
+    <van-image width="10rem" height="10rem" fit="contain" image-class="image-class" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/store03.png" />
   </view>
 </view>

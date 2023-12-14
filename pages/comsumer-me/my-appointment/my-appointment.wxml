@@ -1,0 +1,39 @@
+<view class="container">
+  <van-tabs active="{{ active }}" bind:change="onTagChange">
+    <van-tab title="进行中"></van-tab>
+    <van-tab title="已完成"></van-tab>
+    <van-tab title="已失效"></van-tab>
+  </van-tabs>
+  <scroll-view bindscrolltolower="onScrollToLower" scroll-y="true" style="height: {{ windowHeight - 50 }}px;">
+    <view class="items">
+      <block wx:for="{{ apponitmentList }}" wx:key="index">
+        <view class="item">
+          <view class="top">
+            <view class="project-info">
+              <view class="project-name">
+                <text>{{ item.projectName }}</text>
+              </view>
+              <!-- 美甲师名字 -->
+              <view class="m-name">
+                <text class="text">{{ item.mainicuristName }}</text>
+              </view>
+            </view>
+            <view class="project-status">
+              <text class="text">{{ item.status }}</text>
+            </view>
+          </view>
+          <view class="bootom">
+            <van-icon color="#ECCFB9" name="underway-o" />
+            <text class="text">{{ item.date }}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="footer">
+      <text wx:if="{{ isFooterShow }}">哎呀，已经到底了~~~</text>
+      <van-loading wx:if="{{ loading }}" color="#FF9393" type="spinner" size="30px">
+        <text style="color: #FF9393;">加载中...</text>
+      </van-loading>
+    </view>
+  </scroll-view>
+</view>

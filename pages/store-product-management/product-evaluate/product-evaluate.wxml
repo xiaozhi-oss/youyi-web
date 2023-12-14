@@ -1,2 +1,33 @@
 <!--pages/store-product-management/product-evaluate/product-evaluate.wxml-->
-<text>pages/store-product-management/product-evaluate/product-evaluate.wxml</text>
+<view class="container">
+
+  <view class="reviews">
+    <view class="items">
+      <view class="item" wx:for="{{ reviewList }}" wx:key="id">
+        <view class="user-info">
+          <van-image round width="4rem" height="4rem" src="{{ item.userInfo.url }}" />
+          <text>{{ item.userInfo.username }}</text>
+        </view>
+        <view class="item-content">
+          <view class="product-detail">
+            <text>已购：{{ item.size }}</text>
+          </view>
+          <view class="review-content">
+            <view><text>{{ item.content }}</text></view>
+            <van-grid square="{{ true }}" gutter="{{ 1 }}" column-num="3" border="{{ false }}">
+              <van-grid-item use-slot wx:for="{{ item.imgList }}" wx:key="index">
+                <van-image width="210rpx" height="210rpx" fit="contain" src="{{ item }}" />
+              </van-grid-item>
+            </van-grid>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="reviews-footer">
+      <text wx:if="{{ isReviewFooterShow }}">诶呀，到底了呀~~~</text>
+      <van-loading wx:if="{{ reviewLoading }}" color="#FF9393" type="spinner" size="30px">
+        <text style="color: #FF9393;">加载中...</text>
+      </van-loading>
+    </view>
+  </view>
+</view>

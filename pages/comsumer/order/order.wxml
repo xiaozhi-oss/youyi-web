@@ -38,9 +38,9 @@
             <text>{{ item.orderTime }}</text>
           </view>
           <view class="op-btn">
-            <van-button plain custom-class="btn-class" round>查看物流</van-button>
-            <van-button wx:if="{{ true }}" plain custom-class="btn-class" round>确认收货</van-button>
-            <van-button plain wx:if="{{ false }}" custom-class="btn-class" round>评价</van-button>
+            <van-button plain bind:click="toViewLogisticsPage" custom-class="btn-class" round>查看物流</van-button>
+            <van-button wx:if="{{ false }}" plain custom-class="btn-class" round>确认收货</van-button>
+            <van-button plain wx:if="{{ true }}" bind:click="onReviewPopopOpen" custom-class="btn-class" round>评价</van-button>
             <van-button plain custom-class="btn-class" bind:click="onAfterSalesOrRefunds" round>售后/退款</van-button>
           </view>
         </view>
@@ -100,6 +100,31 @@
     </view>
     <view class="submit-btn">
       <van-button bind:click="onChooseRefundReason" color="#FF9393" round block>提交</van-button>
+    </view>
+  </view>
+</van-popup>
+<!-- 评价弹窗 -->
+<van-popup root-portal="true" closeable show="{{ reviewShow }}" position="bottom" custom-style="height: 70%; margin-bottom: 84px; background-color: #F7F8FA; padding: 0px;" round bind:close="onReviewClose">
+  <view class="after-sales">
+    <view class="info-show">
+      <view class="top-title">
+        <text>评价</text>
+      </view>
+      <view class="voucher">
+        <view class="card-title">
+        <text>评价内容</text>
+        </view>
+        <view class="textarea-con">
+          <textarea maxlength="300" cursor-spacing="200rpx" 
+          model:value="{{ describeContent }}" placeholder="评价" />
+        </view>
+        <view class="img-con">
+          <van-uploader bind:delete="imageDelectEvent" file-list="{{ fileList }}" />
+        </view>
+      </view>
+    </view>
+    <view class="submit-btn">
+      <van-button bind:click="onSubmitReview" color="#FF9393" round block>提交</van-button>
     </view>
   </view>
 </van-popup>

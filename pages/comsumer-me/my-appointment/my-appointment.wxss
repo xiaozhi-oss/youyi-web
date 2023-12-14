@@ -1,0 +1,44 @@
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.items .item{
+  display: flex;
+  flex-direction: column;
+  width: 650rpx;
+  margin: 30rpx 0;
+}
+
+.item .top {
+  background-color: #FFCCB0;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 20rpx 20rpx 0 0 ;
+  padding: 20rpx;
+}
+.top .project-name {
+  font-size: 40rpx;
+  color: #83675D;
+  font-weight: bold;
+}
+.top .project-status {
+  display: flex;
+  align-items: center;
+  font-size: 40rpx;
+}
+
+.item .bootom {
+  background-color: #FAF4F4;
+  padding: 20rpx;
+  border-radius: 0 0 20rpx 20rpx;
+}
+.text {
+  color: #bdb1ad;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  height: 120rpx;
+}

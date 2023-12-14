@@ -1,1 +1,72 @@
-/* pages/store-product-management/listing-product/listing-product.wxss */
+/* pages/comsumer/allProduct/allProduct.wxss */
+.top-image {
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  margin-bottom: 80rpx;
+}
+.products {
+  padding: 0 1.5rem;
+}
+.card-img-class {
+  border-radius: 1.5rem;
+}
+.card-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.p-card {
+  display: flex;
+  background-color: #faded3;
+  border-radius: 1.5rem;
+  padding: 0.5rem;
+  padding-bottom: 0.2rem;
+  margin-bottom: 70rpx;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+.price {
+  margin-bottom: 10rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.price > span {
+  margin-left: 10px;
+}
+.kuncun-update-btn-class{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-class {
+  height: 70rpx !important;
+}
+
+.footer-show {
+  display: flex;
+  height: 250rpx;
+  justify-content: center;
+}
+
+/* 底部添加按钮 */
+.addAdressBtn {
+  position: fixed;
+  bottom: 0rpx;
+  width: 100%;
+  background-color: #fff;
+  padding-bottom: 40rpx;
+  padding-top: 15rpx;
+}
+.addAdressBtnClass {
+  width: 95% !important;
+  height: 80rpx !important;
+  background-color: #FF6A00 !important;
+}

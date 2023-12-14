@@ -1,0 +1,17 @@
+<view class="container">
+  <view class="top-info">
+    <view class="top-left">
+      <image style="width: 50rpx; height: 50rpx; border-radius: 20px;margin-right: 10rpx;" mode="scaleToFill" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/shunfeng.png"></image>
+      <view>
+        <text>顺丰快递 </text>
+        <text>2234234235423423 </text>
+      </view>
+    </view>
+    <view>
+      <text>复制</text>
+    </view>
+  </view>
+  <view class="content">
+    <van-steps active-color="#FF8F72" steps="{{ steps }}" active="{{ active }}" direction="vertical" active-color="#ee0a24" />
+  </view>
+</view>

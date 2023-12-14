@@ -11,6 +11,7 @@ Page({
     refundReason: 1,
     show: false,
     isFooterShow: false,
+    reviewShow: false,
     loading: false,
     refundReasons: [
       "协商一致退款", "退运费", "大小/尺寸与商品描述不符", "少件/漏件", "包装/商品破损", "少件/漏件", "少件/漏件", "少件/漏件", "大小/尺寸与商品描述不符"
@@ -80,18 +81,33 @@ Page({
     });
   },
   onClose() {
-    // reset status
     this.setData({
       show: false,
       afterSalesType: '1',
       isShowRefundReason: false,
-      refundReason: '',
+      describeContent: '',
     });
   },
-  bindTextAreaBlur(e) {
+  onReviewClose(e) {
     this.setData({
+      reviewShow: false,
+    });
+  },
+  onReviewPopopOpen(e) {
+    this.setData({
+      reviewShow: true,
+      fileList: [],
       describeContent: '',
     })
+  },
+  toViewLogisticsPage(e) {
+    wx.navigateTo({
+      url: '/pages/comsumer/viewLogistics/viewLogistics',
+    })
+  },
+  // 提交评价
+  onSubmitReview(e) {
+
   },
   onTyleClick(event) {
     const {

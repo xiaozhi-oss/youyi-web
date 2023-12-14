@@ -1,0 +1,43 @@
+<view class="container">
+  <scroll-view bindscrolltolower="onScrollToLower" scroll-y="true" style="height: {{windowHeight - 100}}px;">
+    <view class="items">
+      <block wx:for="{{ 10 }}" wx:key="index">
+        <view class="info-con ">
+        <van-image round width="100rpx" height="100rpx" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <view class="font-class other-info-bg m-l-15">
+          <text>基于Windows自动化技术，其实就是自动化Windows桌面版的微信，因为是 客户端 ，效率要比网页端的快。</text>
+        </view>
+      </view>
+      <view class="info-con flex-end">
+        <view class="font-class my-info-bg m-r-15">
+          <text>你说的这是啥哦，看不懂喔</text>
+        </view>
+        <van-image round width="100rpx" height="100rpx" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+      </view>
+      <view class="info-con flex-end">
+        <view class="font-class my-info-bg m-r-15">
+          <text>我就想知道钱啥时候退</text>
+        </view>
+        <van-image round width="100rpx" height="100rpx" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+      </view>
+      <view class="info-con">
+        <van-image round width="100rpx" height="100rpx" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <view class="font-class other-info-bg m-l-15">
+          <text>啊哈哈哈不好意思，员工脑子抽了</text>
+        </view>
+      </view>
+      </block>
+    </view>
+    <view style="height: 10rpx;"></view>
+  </scroll-view>
+</view>
+<view class="input-tarbar">
+  <view>
+    <van-field model:value="{{ infoContent }}" bind:change="onChange" custom-class="input-con-class" input-class="input-class">
+      <view slot="right-icon" style="display: flex; align-items: center;">
+        <van-icon custom-style="margin-right: 15rpx;" size="60rpx" name="smile-o" />
+        <van-icon size="60rpx" name="add-o" />
+      </view>
+    </van-field>
+  </view>
+</view>

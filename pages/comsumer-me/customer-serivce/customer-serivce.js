@@ -1,23 +1,22 @@
-// pages/store-product-management/add-update-product/add-update-product.js
+// pages/comsumer-me/customer-serivce/customer-serivce.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    product: {}
+    windowHeight: 0,
+    infoContent: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const product = JSON.parse(options.product)
-    if (Object.keys(product).length !== 0) {
-      this.setData({
-        product: product
-      })
-    }
+    const systemInfo = wx.getSystemInfoSync();
+    this.setData({
+      windowHeight: systemInfo.windowHeight,
+    });
   },
 
   /**
