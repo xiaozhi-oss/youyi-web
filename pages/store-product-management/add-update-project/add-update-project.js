@@ -1,40 +1,16 @@
-// pages/store-product-management/add-update-product/add-update-product.js
+// pages/store-product-management/add-update-project/add-update-project.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    id: '',
     name: '',
-    price: '',
-    mioashu: '',
-    kucun: '',
-    sizes: [ 'M码', 'S码', 'L码' ],
+    newPrice: '',
+    oldPrice: '',
+    miaoshu: '',
     fileList: [],
-    addInputOpen: false,
-    sizeInputValue: '',
-  },
-  onAddSize(e) {
-    this.setData({
-      addInputOpen: true
-    })
-  },
-  onDeleteSize(e) {
-    const index = e.currentTarget.dataset.index
-    console.log(index);
-    const sizes = this.data.sizes
-    sizes.splice(index, 1)
-    this.setData({
-      sizes: sizes
-    })
-  },
-  onConfirmBtnClick(e) {
-    const sizeInputValue = this.data.sizeInputValue
-    this.setData({
-      addInputOpen: false,
-      sizes: [...this.data.sizes, sizeInputValue],
-      sizeInputValue: '',
-    })
   },
   uploadFile(event) {
     const {
@@ -72,25 +48,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const product = options.product
-    let title = '新增商品'
-    if (product !== 'undefined') {
-      title = '修改商品'
-      const productObj = JSON.parse(product)
+    const project = options.project
+    let title = '新增项目'
+    if (project !== 'undefined') {
+      title = '修改项目'
+      const projectObj = JSON.parse(project)
       this.setData({
-        name: productObj.name,
-        price: productObj.price,
-        miaoshu: productObj.miaoshu,
-        sizes: productObj.sizes,
-        kucun: productObj.kucun,
-        fileList: [
-          {
-            url: productObj.url,
-            name: 'imgUrl',
-            isImage: true,
-            deletable: true,
-          }
-        ],
+        id: projectObj.id,
+        name: projectObj.name,
+        newPrice: projectObj.newPrice,
+        oldPrice: projectObj.oldPrice,
+        miaoshu: projectObj.miaoshu,
+        fileList: [{
+          url: projectObj.url,
+          name: 'imgUrl',
+          isImage: true,
+          deletable: true,
+        }]
       })
     }
     wx.setNavigationBarTitle({

@@ -1,2 +1,29 @@
-<!--pages/store-manicurist-management/add-manicurist/add-manicurist.wxml-->
-<text>pages/store-manicurist-management/add-manicurist/add-manicurist.wxml</text>
+<view class="container">
+  <view class="product-info">
+    <van-cell-group>
+      <van-field model:value="{{ name }}" label="姓名：" placeholder="请输入美甲师名" border="{{ false }}" type="textarea" autosize />
+      <van-field model:value="{{ employmentTime }}" label="从业经历：" placeholder="请输入美甲师从业经历" border="{{ false }}" type="textarea" autosize />
+      <van-field model:value="{{ reservationCount }}" label="预约上限：" placeholder="请输入美甲师预约上限" border="{{ false }}" type="textarea" autosize />
+    </van-cell-group>
+    <view class="product-size">
+      <view class="size-left">
+        <text>头像：</text>
+      </view>
+      <view class="size-right">
+        <van-uploader max-count="1" deletable="{{ true }}" file-list="{{ url }}" data-flag="0" bind:after-read="uploadFile" bind:delete="deleteImg" />
+      </view>
+    </view>
+    <view class="product-size">
+      <view class="size-left">
+        <text>作品集：</text>
+      </view>
+      <view class="size-right">
+        <van-uploader data-flag="1" max-count="10" deletable="{{ true }}" file-list="{{ works }}" bind:after-read="uploadFile" bind:delete="deleteImg" />
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="addAdressBtn">
+  <van-button bind:click="onAddAddress" custom-class="addAdressBtnClass" icon="success" round block type="warning">提交</van-button>
+</view>

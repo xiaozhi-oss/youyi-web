@@ -1,18 +1,72 @@
-// pages/store-product-management/listing-project/listing-project.js
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    windowHeight: 0,
+    projects: [
+      {
+        id: 1,
+        name: '纯色美甲|颜色任选',
+        url: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        newPrice: 499.9,
+        oldPrice: 129.9,
+        miaoshu: '包含手部基础护理，护甲造型设计等'
+      },
+      {
+        id: 2,
+        name: '纯色美甲|颜色任选',
+        url: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        newPrice: 499.9,
+        oldPrice: 129.9,
+        miaoshu: '包含手部基础护理，护甲造型设计等'
+      },
+      {
+        id: 3,
+        name: '纯色美甲|颜色任选',
+        url: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        newPrice: 499.9,
+        oldPrice: 129.9,
+        miaoshu: '包含手部基础护理，护甲造型设计等'
+      },
+      {
+        id: 4,
+        name: '纯色美甲|颜色任选',
+        url: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        newPrice: 499.9,
+        oldPrice: 129.9,
+        miaoshu: '包含手部基础护理，护甲造型设计等'
+      },
+    ]
   },
-
+  onDeleteProject(e) {
+    // e.currentTarget.dataset.*
+    const id = e.currentTarget.dataset.id
+    const projectList = this.data.projects
+    const index = projectList.findIndex(p => p.id === id)
+    projectList.splice(index, 1)
+    this.setData({
+      projects: projectList
+    })
+  },
+  onAddUpdate(e) {
+    const project = e.currentTarget.dataset.project
+    const projectJson = JSON.stringify(project)
+    let url = `/pages/store-product-management/add-update-project/add-update-project?project=${projectJson}`
+    wx.navigateTo({
+      url: url,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    const systemInfo = wx.getSystemInfoSync();
+    this.setData({
+      windowHeight: systemInfo.windowHeight,
+    });
   },
 
   /**

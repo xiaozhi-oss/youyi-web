@@ -7,7 +7,7 @@
   width: 650rpx;
   background-color: #FEC3AB;
   border-radius: 50rpx;
-  margin: 50rpx 0;
+  margin: 30rpx 0;
 }
 .item > .info {
   display: flex;
@@ -46,10 +46,17 @@
   color: red;
   font-weight: bold;
 }
-.add-btn {
+/* 底部添加按钮 */
+.addAdressBtn {
   position: fixed;
-  bottom: 190rpx;
+  bottom: 150rpx;
   width: 100%;
-  display: flex;
-  justify-content: center;
+  background-color: #fff;
+  padding-bottom: 40rpx;
+  padding-top: 15rpx;
+}
+.addAdressBtnClass {
+  width: 95% !important;
+  height: 80rpx !important;
+  background-color: #FF6A00 !important;
 }

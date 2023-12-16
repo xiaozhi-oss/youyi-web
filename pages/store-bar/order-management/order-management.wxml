@@ -2,13 +2,13 @@
 <view class="container">
   <view class="items">
     <view class="item">
-      <van-cell custom-class="cell-class" title="待发货订单" is-link />
+      <van-cell custom-class="cell-class" title="待发货订单" is-link url="/pages/store-order-management/listing-order/listing-order?status=0"/>
     </view>
     <view class="item">
-      <van-cell custom-class="cell-class" title="已发货订单" is-link />
+      <van-cell custom-class="cell-class" title="已发货订单" is-link url="/pages/store-order-management/listing-order/listing-order?status=1"/>
     </view>
     <view class="item">
-      <van-cell custom-class="cell-class" title="售后/退款" is-link />
+      <van-cell custom-class="cell-class" title="售后/退款" is-link url="/pages/store-order-management/listing-order/listing-order?status=3"/>
     </view>
   </view>
 </view>
