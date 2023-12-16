@@ -1,5 +1,5 @@
 {
-  "entryPagePath": "pages/user/login/login",
+  "entryPagePath": "pages/store-bar/index/index",
   "pages": [
     "pages/user/login/login",
     "pages/user/register/register",
@@ -28,7 +28,9 @@
     "pages/comsumer-me/feedback/feedback",
     "pages/comsumer/viewLogistics/viewLogistics",
     "pages/store-product-management/listing-project/listing-project",
-    "pages/store-product-management/add-update-product/add-update-product"
+    "pages/store-product-management/add-update-product/add-update-product",
+    "pages/store-product-management/add-update-project/add-update-project",
+    "pages/store-order-management/listing-order/listing-order"
   ],
   "tabBar": {
     "custom": true,

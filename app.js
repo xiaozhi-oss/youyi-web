@@ -19,7 +19,7 @@ App({
   globalData: {
     baseUrl: 'http://10.23.165.177:8888/youyi',
     token: '',
-    isStoreShow: false,
+    isStoreShow: true,
     selectMainicurist: {
       id: '',
       name: ''

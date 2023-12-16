@@ -1,2 +1,43 @@
-<!--pages/store-product-management/listing-project/listing-project.wxml-->
-<text>pages/store-product-management/listing-project/listing-project.wxml</text>
+<!--  -->
+<view class="container">
+  <scroll-view bindscrolltolower="onScrollToLower" scroll-y="true" style="height: {{windowHeight - 85}}px;">
+    <view class="items">
+      <block wx:for="{{ projects }}" wx:key="id">
+        <view class="item-card box-radius">
+          <view class="item-img">
+            <van-image width="120" height="135" image-class="img-class" src="{{ item.url }}" />
+          </view>
+          <view class="item-content">
+            <view class="title">
+              <span>{{ item.title }}</span>
+            </view>
+            <view class="price-btn">
+              <view class="price">
+                <text>¥{{ item.newPrice }}</text>
+                <text>¥{{ item.oldPrice }}</text>
+              </view>
+              <view class="option-btn">
+                <van-button data-project="{{ item }}" custom-class="btn" type="warning" plain bind:click="onAddUpdate">修改</van-button>
+              <van-button data-id="{{ item.id }}" plain custom-class="btn" type="danger" bind:click="onDeleteProject">删除</van-button>
+              </view>
+            </view>
+            <!-- 补充 -->
+            <view class="supplement">
+              <text>包含手部基础护理、指甲造型设计等</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view class="footer-show">
+        <text wx:if="{{ isFooterShow }}">哎呀，已经到底了~~~</text>
+        <van-loading wx:if="{{ loading }}" color="#FF9393" type="spinner" size="30px">
+          <text style="color: #FF9393;">加载中...</text>
+        </van-loading>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<view class="addAdressBtn">
+  <van-button bind:click="onAddUpdate" custom-class="addAdressBtnClass" icon="plus" round block type="warning">添加美甲项目</van-button>
+</view>

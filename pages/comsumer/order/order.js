@@ -34,46 +34,75 @@ Page({
     ],
     orderList: [
       {
-        orderId: 202003261127151030,
-        status: '已完成',
-        title: '手工穿戴甲 长款 轻奢',
-        price: 26.9,
-        payment: 26.9,
-        size: 's码',
-        orderTime: '2023-10-28',
-        url: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png'
+        orderId: '2023122344323423',
+        totalPrice: 2343,
+        time: '2023-12-02',
+        totalNumber: 23,
+        addressId: 1,
+        status: '0',
+        userId: 2,
+        productInfoList: [
+          {
+            productName: '手工穿戴甲 长款高级线条感、轻奢',
+            productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
+            productSize: 'S码',
+            productPrice: 26,
+            productNumber: 3,
+          },
+          {
+            productName: '手工穿戴甲 长款高级线条感、轻奢',
+            productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
+            productSize: 'S码',
+            productPrice: 26,
+            productNumber: 3,
+          },
+          {
+            productName: '手工穿戴甲 长款高级线条感、轻奢',
+            productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
+            productSize: 'S码',
+            productPrice: 26,
+            productNumber: 3,
+          }
+        ]
       },
       {
-        orderId: 202003261127151030,
-        status: '已完成',
-        title: '手工穿戴甲 长款 轻奢',
-        price: 26.9,
-        payment: 26.9,
-        size: 's码',
-        orderTime: '2023-10-28',
-        url: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png'
+        orderId: '2023122344323423',
+        totalPrice: 2343,
+        time: '2023-12-02',
+        totalNumber: 23,
+        addressId: 1,
+        status: '0',
+        userId: 2,
+        productInfoList: [
+          {
+            productName: '手工穿戴甲 长款高级线条感、轻奢',
+            productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
+            productSize: 'S码',
+            productPrice: 26,
+            productNumber: 3,
+          }
+        ]
       },
       {
-        orderId: 202003261127151030,
-        status: '已完成',
-        title: '手工穿戴甲 长款 轻奢',
-        price: 26.9,
-        payment: 26.9,
-        size: 's码',
-        orderTime: '2023-10-28',
-        url: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png'
+        orderId: '2023122344323423',
+        totalPrice: 2343,
+        time: '2023-12-02',
+        totalNumber: 23,
+        addressId: 1,
+        status: '0',
+        userId: 2,
+        productInfoList: [
+          {
+            productName: '手工穿戴甲 长款高级线条感、轻奢',
+            productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
+            productSize: 'S码',
+            productPrice: 26,
+            productNumber: 3,
+          }
+        ]
       },
-      {
-        orderId: 202003261127151030,
-        status: '已完成',
-        title: '手工穿戴甲 长款 轻奢',
-        price: 26.9,
-        payment: 26.9,
-        size: 's码',
-        orderTime: '2023-10-28',
-        url: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png'
-      },
-    ]
+    ],
+    statusList: ["未发货" , "已发货", "确认收货", "售后", "售后完成"]
   },
   onChooseAfterSalesType(event) {
     this.setData({
@@ -110,9 +139,7 @@ Page({
 
   },
   onTyleClick(event) {
-    const {
-      name
-    } = event.currentTarget.dataset;
+    const { name } = event.currentTarget.dataset;
     this.setData({
       afterSalesType: name,
     });
@@ -188,14 +215,36 @@ Page({
       setTimeout(() => {
         for (let i = 0; i < 10; i++) {
           orderList.push({
-            orderId: 202003261127151030,
-            status: '已完成',
-            title: '手工穿戴甲 长款 轻奢',
-            price: 26.9,
-            payment: 26.9,
-            size: 's码',
-            orderTime: '2023-10-28',
-            url: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png'
+            orderId: '2023122344323423',
+            totalPrice: 2343,
+            time: '2023-12-02',
+            totalNumber: 23,
+            addressId: 1,
+            status: '未发货',
+            userId: 2,
+            productInfoList: [
+              {
+                productName: '手工穿戴甲 长款高级线条感、轻奢',
+                productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
+                productSize: 'S码',
+                productPrice: 26,
+                productNumber: 3,
+              },
+              {
+                productName: '手工穿戴甲 长款高级线条感、轻奢',
+                productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
+                productSize: 'S码',
+                productPrice: 26,
+                productNumber: 3,
+              },
+              {
+                productName: '手工穿戴甲 长款高级线条感、轻奢',
+                productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
+                productSize: 'S码',
+                productPrice: 26,
+                productNumber: 3,
+              }
+            ]
           })
         }
         this.setData({

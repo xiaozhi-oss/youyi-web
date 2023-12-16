@@ -70,7 +70,7 @@
     </view>
   </scroll-view>
 </van-popup>
-<van-popup show="{{ false }}" round position="bottom" custom-style="height: 80%" bind:close="onCloseManicuristPopup">
+<!-- <van-popup show="{{ false }}" round position="bottom" custom-style="height: 80%" bind:close="onCloseManicuristPopup">
   <van-tabs active="{{ active }}" swipe-threshold="4">
   <van-tab title="今天 12-11" >
     <view>
@@ -91,7 +91,7 @@
   <van-tab title="周四 12-14">内容 4</van-tab>
   <van-tab title="周五 12-15">内容 5</van-tab>
 </van-tabs>
-</van-popup>
+</van-popup> -->
 <!-- 在页面内添加对应的节点 -->
 <van-notify id="van-notify" />
 <van-toast id="van-toast" />

@@ -1,1 +1,69 @@
-/* pages/store-manicurist-management/add-manicurist/add-manicurist.wxss */
+
+.title-class {
+  width: 10rpx;
+}
+
+.title-class .size{
+  
+  height: 30rpx;
+}
+
+.product-size {
+  background: #fff;
+  padding: 10px 16px ;
+  color: #646566;
+  display: flex;
+}
+.size-right {
+  display: flex;
+}
+.product-size .size-left {
+  font-size: 30rpx;
+  margin-right: 45rpx;
+}
+.size-left {
+  width: 157rpx;
+}
+.size-right {
+  display: flex;
+  flex-direction: column;
+  width: 480rpx;
+}
+.size-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.size-block {
+  background-color: #EEDFDF;
+  padding: 10rpx 20rpx;
+  width: 100rpx;
+  display: flex;
+  justify-content: center;
+}
+.btn-class {
+  height: 60rpx !important;
+}
+.add-btn {
+  background-color: #FDD1BE;
+  display: flex;
+  justify-content: center;
+  border-radius: 40rpx;
+}
+
+
+/* 底部添加按钮 */
+.addAdressBtn {
+  position: fixed;
+  bottom: 0rpx;
+  width: 100%;
+  background-color: #fff;
+  padding-bottom: 40rpx;
+  padding-top: 15rpx;
+}
+.addAdressBtnClass {
+  width: 95% !important;
+  height: 80rpx !important;
+  background-color: #FF6A00 !important;
+}

@@ -1,2 +1,45 @@
-<!--pages/store-product-management/add-update-product/add-update-product.wxml-->
-<text>pages/store-product-management/add-update-product/add-update-product.wxml</text>
+<view class="container">
+  <view class="product-info">
+    <van-cell-group>
+      <van-field model:value="{{ name }}" label="商品名称：" placeholder="请输入商品名称" border="{{ false }}" type="textarea" autosize />
+      <van-field model:value="{{ price }}" label="商品价格：" placeholder="请输入商品价格" border="{{ false }}" type="textarea" autosize />
+      <van-field model:value="{{ miaoshu }}" label="商品描述：" placeholder="请输入描述" border="{{ false }}" type="textarea" autosize />
+      <van-field model:value="{{ kucun }}" label="库存：" placeholder="请输入库存数量" border="{{ false }}" type="textarea" autosize />
+    </van-cell-group>
+    <view class="product-size">
+      <view class="size-left">
+        <text>商品规格：</text>
+      </view>
+      <view class="size-right">
+        <view class="size-item" wx:for="{{ sizes }}" wx:key="index">
+          <view class="size-block">
+            <text>{{ item }}</text>
+          </view>
+          <view class="size-delete">
+            <van-button bind:click="onDeleteSize" data-index="{{ index }}" custom-class="btn-class" plain round type="danger">删除</van-button>
+          </view>
+        </view>
+        <van-field wx:if="{{ addInputOpen }}" model:value="{{ sizeInputValue }}" center clearable placeholder="请输入尺寸" border="{{ false }}" use-button-slot>
+          <van-button bind:click="onConfirmBtnClick" slot="button" size="small" type="primary">
+            确认
+          </van-button>
+        </van-field>
+        <view class="add-btn" bind:tap="onAddSize">
+          <van-icon size="100rpx" name="plus" />
+        </view>
+      </view>
+    </view>
+    <view class="product-size">
+      <view class="size-left">
+        <text>商品详情：</text>
+      </view>
+      <view class="size-right">
+        <van-uploader max-count="1" deletable="{{ true }}" file-list="{{ fileList }}" bind:after-read="uploadFile" bind:delete="deleteImg" />
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="addAdressBtn">
+  <van-button bind:click="onAddAddress" custom-class="addAdressBtnClass" icon="success" round block type="warning">提交</van-button>
+</view>

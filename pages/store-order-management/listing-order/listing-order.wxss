@@ -20,7 +20,7 @@
   align-items: center;
 }
 .item {
-  margin: 30rpx 0;
+  margin: 30rpx 0rpx;
   padding: 20rpx;
   display: flex;
   flex-direction: column;
@@ -64,7 +64,7 @@
   color: #ADABA8;
 }
 .actual-payment > text:nth-last-child(1) {
-  font-size: 45rpx;
+  font-size: 35rpx;
 }
 .btn-class {
   background-color: #FEC5A5 !important;
@@ -73,6 +73,18 @@
   height: 70rpx !important;
   width: 165rpx;
 }
+.item-bootom {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+.op-btn {
+  width: 480rpx;
+}
+.btn-con {
+  display: flex; justify-content: flex-end;
+  margin-top: 10rpx;
+}
 .item-footer {
   display: flex;
   align-items: center;
@@ -80,9 +92,6 @@
 }
 .order-time {
   width: 180rpx;
-}
-.op-btn {
-  width: 500rpx;
 }
 .item-footer > view:first-child {
   display: flex;
