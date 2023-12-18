@@ -1,0 +1,31 @@
+<view class="container">
+  <scroll-view bindscrolltolower="onScrollToLower" scroll-y="true" style="height: {{windowHeight}}px;">
+    <view class="items">
+      <block wx:for="{{ 20 }}" wx:key="index">
+        <view class="item">
+          <view class="left-avg">
+            <van-image round width="110rpx" height="110rpx" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+          </view>
+          <view class="right-con">
+            <view>
+              <view class="top-text">
+                <text>小八嘎</text>
+              </view>
+              <view class="bootom-text van-ellipsis">
+                <text>我是一小花花画画我回sdfsdfsdfsdfsdfsdfsd</text>
+              </view>
+            </view>
+            <view class="right-last">
+              <view class="send-time">
+                <text>23/12/12</text>
+              </view>
+              <view class="message-count">
+                <text>11</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>

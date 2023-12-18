@@ -1,32 +1,19 @@
-// pages/comsumer/home/home.js
+// pages/store-me/user-management/user-management.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    searchKey: ''
+
   },
-  onSearch(e) {
-    const searchKey = this.data.searchKey
-    wx.navigateTo({
-      url: `/pages/comsumer/allProduct/allProduct?searchKey=${searchKey}`,
-    })
-  },
-  onGetAllGoods(e) {
-    wx.navigateTo({
-      url: '/pages/comsumer/allProduct/allProduct',
-    })
-  },
-  onGetClassificationGoods(e) {
-    wx.navigateTo({
-      url: '/pages/comsumer/classificationSearch/classificationSearch',
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    // 类型：0-管理员用户 1-普通用户
+    const type = options.type
     
   },
 
@@ -41,7 +28,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.getTabBar().init();
+
   },
 
   /**

@@ -1,12 +1,35 @@
+import Toast from '/@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   data: {
-    checked: true
+    checked: true,
+    username: '',
+    password: '',
+    confirmPassword: ''
   },
   onChange(event) {
     this.setData({
       checked: event.detail,
     });
+  },
+  registerBtnClick(e) {
+    Toast.loading({
+      message: '注册中...',
+      forbidClick: true,
+      loadingType: 'spinner',
+    });
+    api.register(this.data.username, this.data.password, this.data.confirmPassword)
+      .then(res => {
+        Toast.success('注册成功');
+          setTimeout(function(){
+            wx.navigateTo({
+              url: '/pages/user/login/login',
+            })
+          },1000);
+      }).catch(res => {
+        console.log(res);
+      })
   },
   /**
    * 生命周期函数--监听页面加载

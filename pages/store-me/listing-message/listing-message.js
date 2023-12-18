@@ -1,33 +1,21 @@
-// pages/comsumer/home/home.js
+// pages/store-me/listing-message/listing-message.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    searchKey: ''
+    windowHeight: 0,
   },
-  onSearch(e) {
-    const searchKey = this.data.searchKey
-    wx.navigateTo({
-      url: `/pages/comsumer/allProduct/allProduct?searchKey=${searchKey}`,
-    })
-  },
-  onGetAllGoods(e) {
-    wx.navigateTo({
-      url: '/pages/comsumer/allProduct/allProduct',
-    })
-  },
-  onGetClassificationGoods(e) {
-    wx.navigateTo({
-      url: '/pages/comsumer/classificationSearch/classificationSearch',
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    
+    const systemInfo = wx.getSystemInfoSync();
+    this.setData({
+      windowHeight: systemInfo.windowHeight,
+    });
   },
 
   /**
@@ -41,7 +29,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.getTabBar().init();
+
   },
 
   /**

@@ -1,4 +1,5 @@
 import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   /**
@@ -9,6 +10,7 @@ Page({
     paymentIndex: '0',
     products: [],
     totalPrice: 0,
+    address: {}
   },
   onCellClick(event) {
     const {
@@ -20,39 +22,60 @@ Page({
   },
   onSubmitOrder(e) {
     Toast.loading({
-      message: '支付中...',
+      message: '加载中...',
       forbidClick: true,
       loadingType: 'spinner',
     });
-    setTimeout(() => {
-      Toast.success('支付成功');
-    }, 1000);
-    setTimeout(() => {
-      wx.redirectTo({
-        url: '/pages/comsumer/paymentSuccess/paymentSuccess',
+    const products = this.data.products
+    products.forEach(p => {
+      p.size = p.sizes[0]
+      delete p.id
+    });
+    const order = {
+      addressId: this.data.address.id,
+      products: products,
+    }
+    console.log(order);
+    api.createOrder(order)
+      .then(res => {
+        Toast.success('下单成功');
+        // // 清空购物车
+        const app = getApp()
+        app.globalData.cartInfo = {
+          totalPrice: 0.0,
+          number: 0,
+          products: []
+        };
+        setTimeout(() => {
+          wx.redirectTo({
+            url: '/pages/comsumer/paymentSuccess/paymentSuccess',
+          })
+        }, 1000);
       })
-    }, 2000);
-    // 清空购物车
-    const app = getApp()
-    app.globalData.cartInfo = {
-      totalPrice: 0.0,
-      number: 0,
-      products: []
-    };
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    const type = options.paymentType // 支付类型 0-购物车下单 1-单个下单
+    let products = []
+    let totalPrice = ''
+    if (type === '0') {
+      const cartInfo = getApp().globalData.cartInfo
+      products = cartInfo.products
+      totalPrice = cartInfo.totalPrice
+    } else {
+      const product = options.product
+      products = [product]
+      totalPrice = product.price
+    }
     const systemInfo = wx.getSystemInfoSync();
-    // 自定义加载图标
-    // Toast.loading({
-    //   message: '加载中...',
-    //   forbidClick: true,
-    //   loadingType: 'spinner',
-    // });
-    const products = JSON.parse(options.param)
-    const totalPrice = this.calculateTotalPrice(products)
+    api.getDefaultAddress()
+      .then(res => {
+        this.setData({
+          address: res.data.data
+        })
+      })
     this.setData({
       products: products,
       windowHeight: systemInfo.windowHeight,
@@ -62,7 +85,7 @@ Page({
   calculateTotalPrice(productList) {
     let totalPrice = 0;
     for (const p of productList) {
-      totalPrice += p.price * p.quantity
+      totalPrice += p.price * p.number
     }
     return totalPrice
   },

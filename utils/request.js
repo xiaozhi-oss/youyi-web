@@ -1,6 +1,7 @@
 var app = getApp(); //引入全局app.js，我们可以在globalData中定义一些公用的数据，比如baseUrl、token
 import Toast from '/@vant/weapp/toast/toast'; //引入vant插件，用于提示错误
 const request = function (url, options) {
+  console.log(app.globalData.token);
   return new Promise((resolve, reject) => {
     wx.request({
       url: app.globalData.baseUrl + url,
@@ -11,11 +12,21 @@ const request = function (url, options) {
         'Authorization': app.globalData.token
       },
       success: (res) => {
-        if (res.data.status === 500) {
-          Toast.fail('res.data.message');
-          reject(res.data.message)
+        if (res.data.status === '401') {
+          // 重新登录
+          Toast.fail("请重新登录...")
+          setTimeout(() => {
+            wx.navigateTo({
+              url: '/pages/user/login/login',
+            })
+          }, 1000);
+          return 
+        } else if (res.data.status === '500') {
+          Toast.fail(res.data.data[0])
+          return
         } else {
           resolve(res)
+          // 重新登录
         }
       },
       fail: (err) => {

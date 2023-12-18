@@ -33,6 +33,9 @@
   background-color: #FAF4F4;
   padding: 20rpx;
   border-radius: 0 0 20rpx 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .text {
   color: #bdb1ad;
@@ -41,4 +44,9 @@
   display: flex;
   justify-content: center;
   height: 120rpx;
+}
+
+.btn {
+  margin-top: 50rpx;
+  height: 100%;
 }

@@ -50,7 +50,7 @@
                 <view class="info">
                   <span>{{ item.name }}</span>
                   <view class="add-btn">
-                    <van-stepper data-id="{{ item.id }}" value="{{ item.quantity }}" bind:blur="onQuantityChange" bind:plus="onQuantityPush" bind:minus="onQuantityMinus" />
+                    <van-stepper data-id="{{ item.id }}" value="{{ item.number }}" bind:blur="onQuantityChange" bind:plus="onQuantityPush" bind:minus="onQuantityMinus" />
                   </view>
                   <view class="price">
                     <view>
@@ -132,8 +132,8 @@
     </view>
   </scroll-view>
   <van-goods-action>
-    <van-goods-action-button color="#FFC3A0" text="加入购物车" type="warning" />
-    <van-goods-action-button color="#FF9B6F" text="立即购买" />
+    <van-goods-action-button bind:click="onToCart" color="#FFC3A0" text="加入购物车" type="warning" />
+    <van-goods-action-button bind:click="onBuyNow" color="#FF9B6F" text="立即购买" />
   </van-goods-action>
 </van-popup>
 <van-toast id="van-toast" />

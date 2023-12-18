@@ -9,69 +9,51 @@ Page({
     active: 0,
     isFooterShow: false,
     loading: false,
+    isInfoShow: false,
+    apponitmentInfo: {},
     apponitmentList: [
       {
         id: 1,
-        status: '已完成',
-        mainicuristName: '伊音儿',
-        projectName: '半贴甲片 | 不限砖饰',
-        date: '2023-09-01'
+        status: 0,
+        mainicuristName: '伊音儿2',
+        date: '2023-09-01 12:30',
+        name: '小老二',
+        phone: '133534523234',
+        projectName: '半贴甲片 | 不限砖饰'
       },
       {
         id: 2,
-        status: '已完成',
+        status: 1,
         mainicuristName: '伊音儿',
-        projectName: '半贴甲片 | 不限砖饰',
-        date: '2023-09-01'
+        date: '2023-09-01',
+        name: '小老二',
+        phone: '133534523234',
+        projectName: '半贴甲片 | 不限砖饰'
       },
       {
         id: 3,
-        status: '已完成',
+        status: 2,
         mainicuristName: '伊音儿',
-        projectName: '半贴甲片 | 不限砖饰',
-        date: '2023-09-01'
+        date: '2023-09-01',
+        name: '小老二',
+        phone: '133534523234',
+        projectName: '半贴甲片 | 不限砖饰'
       },
-      {
-        id: 2,
-        status: '已完成',
-        mainicuristName: '伊音儿',
-        projectName: '半贴甲片 | 不限砖饰',
-        date: '2023-09-01'
-      },
-      {
-        id: 2,
-        status: '已完成',
-        mainicuristName: '伊音儿',
-        projectName: '半贴甲片 | 不限砖饰',
-        date: '2023-09-01'
-      },
-      {
-        id: 2,
-        status: '已完成',
-        mainicuristName: '伊音儿',
-        projectName: '半贴甲片 | 不限砖饰',
-        date: '2023-09-01'
-      },
-      {
-        id: 2,
-        status: '已完成',
-        mainicuristName: '伊音儿',
-        projectName: '半贴甲片 | 不限砖饰',
-        date: '2023-09-01'
-      },
-      {
-        id: 2,
-        status: '已完成',
-        mainicuristName: '伊音儿',
-        projectName: '半贴甲片 | 不限砖饰',
-        date: '2023-09-01'
-      },
+    ],
+    statusList: [
+      "未确认","进行中", "已完成", "已失效" 
     ]
   },
+  onViewInfo(e) {
+    const id = e.currentTarget.dataset.id
+    const index = this.data.apponitmentList.findIndex(a => a.id === id)
+    this.setData({ isInfoShow: true, apponitmentInfo: this.data.apponitmentList[index] })
+  },
+  onCloseInfoPopup(e) {
+    this.setData({ isInfoShow: false })
+  },
   onTagChange(event) {
-    this.setData({
-      apponitmentList: []
-    })
+    
   },
   onScrollToLower(e) {
     if (!this.data.loading && !this.data.isFooterShow) {

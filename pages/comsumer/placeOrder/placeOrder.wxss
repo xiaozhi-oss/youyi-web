@@ -65,7 +65,7 @@
 .add-btn {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 /* 支付模块 */
