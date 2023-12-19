@@ -1,4 +1,5 @@
-// pages/store-order-management/listing-order/listing-order.js
+import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   /**
@@ -7,77 +8,28 @@ Page({
   data: {
     windowHeight: 0,
     status: 0,
-    orderList: [
-      {
-        orderId: '2023122344323423',
-        totalPrice: 2343,
-        time: '2023-12-02',
-        totalNumber: 23,
-        addressId: 1,
-        status: 0,
-        userId: 2,
-        productInfoList: [
-          {
-            productName: '手工穿戴甲 长款高级线条感、轻奢',
-            productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
-            productSize: 'S码',
-            productPrice: 26,
-            productNumber: 3,
-          },
-          {
-            productName: '手工穿戴甲 长款高级线条感、轻奢',
-            productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
-            productSize: 'S码',
-            productPrice: 26,
-            productNumber: 3,
-          },
-          {
-            productName: '手工穿戴甲 长款高级线条感、轻奢',
-            productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
-            productSize: 'S码',
-            productPrice: 26,
-            productNumber: 3,
-          }
-        ]
-      },
-      {
-        orderId: '2023122344323424',
-        totalPrice: 2343,
-        time: '2023-12-02',
-        totalNumber: 23,
-        addressId: 1,
-        status: 1,
-        userId: 2,
-        productInfoList: [
-          {
-            productName: '手工穿戴甲 长款高级线条感、轻奢',
-            productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
-            productSize: 'S码',
-            productPrice: 26,
-            productNumber: 3,
-          }
-        ]
-      },
-      {
-        orderId: '2023122344323425',
-        totalPrice: 2343,
-        time: '2023-12-02',
-        totalNumber: 23,
-        addressId: 3,
-        status: 3,
-        userId: 2,
-        productInfoList: [
-          {
-            productName: '手工穿戴甲 长款高级线条感、轻奢',
-            productUrl: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
-            productSize: 'S码',
-            productPrice: 26,
-            productNumber: 3,
-          }
-        ]
-      },
-    ],
-    statusList: ["未发货" , "已发货", "确认收货", "售后", "售后完成"]
+    pageCurrent: 1,
+    orderList: [],
+    statusList: ["未发货", "已发货", "确认收货", "售后", "售后完成"]
+  },
+  onConfirmShipment(e) {
+    const orderId = e.currentTarget.dataset.id
+    const self = this
+    api.updateOrderStatus(orderId, 1)
+      .then(res => {
+        Toast.success("发货成功")
+        const orderList = self.data.orderList
+        console.log(orderList);
+        const index = orderList.findIndex(p => p.orderId === orderId);
+        console.log(index);
+        orderList.splice(index, 1)
+        console.log(orderList);
+        self.setData({
+          orderList: orderList
+        })
+      }).catch(err => {
+        // 失败回调
+      })
   },
   toViewLogisticsPage(e) {
     const orderId = e.currentTarget.dataset.id
@@ -91,6 +43,20 @@ Page({
   onLoad(options) {
     const systemInfo = wx.getSystemInfoSync();
     const status = options.status
+    api.getOrderList(1, status)
+      .then(res => {
+        const orderList = res.data.data
+        var footerShow = false
+        if (orderList.length > 0 && orderList.length < 10) {
+          footerShow = true
+        }
+        this.setData({
+          orderList: orderList,
+          footerShow: footerShow
+        })
+      }).catch(err => {
+        // 失败回调
+      })
     this.setData({
       windowHeight: systemInfo.windowHeight,
       orderStatus: status

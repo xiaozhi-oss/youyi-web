@@ -20,6 +20,58 @@ Page({
       paymentIndex: name,
     });
   },
+  onQuantityChange(e) {
+    const productId = e.currentTarget.dataset.id
+    const value = e.detail.value <= 0 ? 1 : e.detail.value
+    const products = this.data.products
+    // 修改对应商品的数量
+    let existingProductIndex = products.findIndex(p => p.id === productId);
+    if (existingProductIndex !== -1) {;
+      // 将数量修改为最新数量
+      products[existingProductIndex].number = value;
+    }
+    // 重新计算购物车
+    var totalPrice = 0
+    for (let i=0; i < products.length; i++) {
+      totalPrice += products[i].price * products[i].number
+    }
+    this.setData({
+      totalPrice: totalPrice,
+      products: products
+    })
+  },
+  onQuantityPush(e) {
+    const productId = e.currentTarget.dataset.id
+    const products = this.data.products
+    // 修改对应商品的数量
+    let existingProductIndex = products.findIndex(p => p.id === productId);
+    if (existingProductIndex !== -1) {;
+      // 将数量修改为最新数量
+      products[existingProductIndex].number += 1;
+      var totalPrice = this.data.totalPrice
+      totalPrice += products[existingProductIndex].price
+    }
+    this.setData({
+      totalPrice: totalPrice,
+      products: products
+    })
+  },
+  onQuantityMinus(e) {
+    const productId = e.currentTarget.dataset.id
+    const products = this.data.products
+    // 修改对应商品的数量
+    let existingProductIndex = products.findIndex(p => p.id === productId);
+    if (existingProductIndex !== -1) {;
+      // 将数量修改为最新数量
+      products[existingProductIndex].number -= 1;
+      var totalPrice = this.data.totalPrice
+      totalPrice -= products[existingProductIndex].price
+    }
+    this.setData({
+      totalPrice: totalPrice,
+      products: products
+    })
+  },
   onSubmitOrder(e) {
     Toast.loading({
       message: '加载中...',
@@ -27,10 +79,7 @@ Page({
       loadingType: 'spinner',
     });
     const products = this.data.products
-    products.forEach(p => {
-      p.size = p.sizes[0]
-      delete p.id
-    });
+    products.forEach(p => { delete p.id });
     const order = {
       addressId: this.data.address.id,
       products: products,
@@ -63,9 +112,12 @@ Page({
     if (type === '0') {
       const cartInfo = getApp().globalData.cartInfo
       products = cartInfo.products
+      products.forEach(p => {
+        p.productId = p.id
+      })
       totalPrice = cartInfo.totalPrice
     } else {
-      const product = options.product
+      const product = JSON.parse(options.product)
       products = [product]
       totalPrice = product.price
     }

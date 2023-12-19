@@ -1,6 +1,6 @@
 <!--  -->
 <view class="container">
-  <scroll-view bindscrolltolower="onScrollToLower" scroll-y="true" style="height: {{windowHeight - 85}}px;">
+  <scroll-view bindscrolltolower="onScrollToLower" scroll-y="true" style="height: {{windowHeight - 70}}px;">
     <view class="items">
       <block wx:for="{{ projects }}" wx:key="id">
         <view class="item-card box-radius">
@@ -9,7 +9,7 @@
           </view>
           <view class="item-content">
             <view class="title">
-              <span>{{ item.title }}</span>
+              <span>{{ item.name }}</span>
             </view>
             <view class="price-btn">
               <view class="price">
@@ -23,13 +23,13 @@
             </view>
             <!-- 补充 -->
             <view class="supplement">
-              <text>包含手部基础护理、指甲造型设计等</text>
+              <text>{{ item.miaoshu }}</text>
             </view>
           </view>
         </view>
       </block>
       <view class="footer-show">
-        <text wx:if="{{ isFooterShow }}">哎呀，已经到底了~~~</text>
+        <text wx:if="{{ footerShow }}">哎呀，已经到底了~~~</text>
         <van-loading wx:if="{{ loading }}" color="#FF9393" type="spinner" size="30px">
           <text style="color: #FF9393;">加载中...</text>
         </van-loading>

@@ -25,7 +25,7 @@
             <view class="info">
               <span>{{ item.name }}</span>
               <view class="add-btn">
-                <view>{{ item.sizes[0] }}</view>
+                <view>{{ item.size }}</view>
                 <van-stepper data-id="{{ item.id }}" value="{{ item.number }}" bind:blur="onQuantityChange" bind:plus="onQuantityPush" bind:minus="onQuantityMinus" />
               </view>
               <view class="price">

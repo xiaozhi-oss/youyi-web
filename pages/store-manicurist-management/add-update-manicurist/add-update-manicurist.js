@@ -1,43 +1,79 @@
-// pages/store-manicurist-management/add-manicurist/add-manicurist.js
+import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    id: '',
     name: '',
     employmentTime: '',
-    reservationCount: '',
     kucun: '',
     works: [],
-    url: []
+    url: [],
+  },
+  onSubmit(e) {
+    let workStr = ''
+    for (const item in this.data.works) {
+      workStr += item.url
+    }
+    const manicurist = {
+      id: this.data.id,
+      name: this.data.name,
+      employmentTime: this.data.employmentTime,
+      kucun: this.data.kucun,
+      works: workStr,
+      url: this.data.url[0].url
+    }
+    api.AndOrUpdateManicurist(manicurist)
+    .then(res => {
+      Toast.success("提交成功")
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 1000)
+    }).catch(err => {
+      // 失败回调
+    })
   },
   uploadFile(event) {
-    const {
-      file
-    } = event.detail;
+    const type = event.currentTarget.dataset.type
+    const { file } = event.detail;
+    var self = this
     wx.uploadFile({
-      url: 'https://example.weixin.qq.com/upload',
+      url: getApp().globalData.baseUrl + "/upload",
       filePath: file.url,
-      name: 'file',
-      formData: {
-        user: 'test'
-      },
+      name: 'imgList',
+      header: { 'content-type': 'multipart/form-data' },
       success(res) {
+        const imgUrl = JSON.parse(res.data).data
         // 上传完成需要更新 fileList
-        const {
-          fileList = []
-        } = this.data;
-        fileList.push({
-          ...file,
-          url: res.data
-        });
-        this.setData({
-          fileList
-        });
-      },
+        var fileList = []
+        if (type === '0') {
+          fileList.push({
+            url: imgUrl[0],
+            isImage: true,
+            deletable: true,
+          });
+          self.setData({
+            url: fileList
+          });
+        } else {
+          fileList = self.data.works
+          for (const img of imgUrl) {
+            const imgObj = {
+              url: img,
+              isImage: true,
+              deletable: true,
+            }
+            fileList.push(imgObj)
+          }
+          self.setData({
+            works: fileList
+          });
+        }
+      }
     });
-
   },
   deleteImg(e) {
     const id = e.currentTarget.dataset.id

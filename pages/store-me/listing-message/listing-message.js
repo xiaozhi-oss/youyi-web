@@ -1,4 +1,5 @@
-// pages/store-me/listing-message/listing-message.js
+import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   /**

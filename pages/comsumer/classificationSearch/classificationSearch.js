@@ -1,6 +1,8 @@
 // pages/comsumer/classificationSearch/classificationSearch.js
 const appInstance = getApp()
 const globalData = appInstance.globalData;
+import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   /**
@@ -15,6 +17,8 @@ Page({
     selelctSizeIndex: 0,
     sizeList: ['S码', 'M码', 'L码', 'XL码'],
     productDetail: {},
+    productCurrent: 1,
+    typeName: '新品推荐',
     productTypes: [{
         id: 0,
         name: "新品推荐"
@@ -60,52 +64,8 @@ Page({
       }
     ],
     // 接收后端接收到的商品列表
-    products: [{
-        "id": 1,
-        "url": "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png",
-        "name": "手工穿戴甲 长款高级线条感、轻奢",
-        "miaoshu": "低调而彰显奢华",
-        "price": 26,
-        "sizes": [
-          "S码",
-          "M码",
-          "L码"
-        ],
-        "kucun": 1000
-      },
-      {
-        "id": 2,
-        "url": "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png",
-        "name": "手工穿戴甲 长款高级线条感、轻奢 - 19",
-        "miaoshu": "低调奢华",
-        "price": 45,
-        "sizes": [
-          "S码",
-          "M码",
-          "L码"
-        ],
-        "kucun": 119
-      },
-      {
-        id: 3,
-        title: `手工穿戴甲 长款高级线条感、轻奢 - 3`,
-        price: 67,
-        url: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
-        specifications: ['S码', 'M码', 'L码']
-      },
-      {
-        "id": 3,
-        "url": "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png",
-        "name": "手工穿戴甲 长款高级线条感、轻奢 - 19",
-        "miaoshu": "低调奢华",
-        "price": 45,
-        "sizes": [
-          "S码",
-          "M码",
-          "L码"
-        ],
-        "kucun": 119
-      },
+    products: [
+
     ],
   },
   sizeBtnClick(e) {
@@ -137,11 +97,25 @@ Page({
   },
   onChangeNav(e) {
     const navId = e.detail
-    if (navId !== 0) {
-      this.setData({
-        products: []
+    const type = this.data.productTypes.find(p => p.id === navId)
+    console.log(type);
+    api.getProductList(0, type.name)
+      .then(res => {
+        const products = res.data.data
+        let footerShow = false;
+        if (products.length > 0 && products.length < 10) {
+          footerShow = true
+        }
+        this.setData({
+          typeName: type.name,
+          products: products,
+          productCurrent: this.data.productCurrent,
+          footerShow: footerShow,
+          loading: false,
+        })
+      }).catch(err => {
+        // 失败回调
       })
-    }
   },
   addProductToCart(event) {
     const product = event.currentTarget.dataset.item
@@ -149,6 +123,7 @@ Page({
     let cartInfo = app.globalData.cartInfo;
     // 检查商品是否已经在购物车中
     let existingProductIndex = cartInfo.products.findIndex(p => p.id === product.id);
+    product.size = product.sizes[this.data.selelctSizeIndex]
     // 放入到购物车中
     if (existingProductIndex !== -1) {
       // 如果商品已经在购物车中，则增加数量
@@ -283,36 +258,94 @@ Page({
   },
   onScrollToLower(e) {
     if (!this.data.loading && !this.data.footerShow) {
-      this.setData({
-        loading: true
-      });
-      setTimeout(() => {
-        this.setData({
-          loading: false,
-        });
-      }, 2000);
+      this.setData({ loading: true });
       const products = this.data.products
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          products.push({
-            id: 5,
-            title: '赶紧的下单,看了就给老子买',
-            price: 26,
-            url: 'https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png',
-            specifications: ['S码', 'M码', 'L码']
-          })
+      api.getProductList(this.data.productCurrent + 1, this.data.typeName)
+      .then(res => {
+        const productList = res.data.data
+        let footerShow = false
+        if (productList.length >= 0 && productList.length < 10) {
+          footerShow = true
         }
+        products.push(...productList)
         this.setData({
-          products: products
+          products: products,
+          loading: false,
+          footerShow: footerShow,
+          productCurrent: this.data.productCurrent + 1,
         })
-      }, 2000);
+      })
+      .catch(err => {
+
+      })
     }
+  },
+  onCartPlaceOrder(e) { // 购物车下单
+    // 获取购物车的商品信息
+    const products = this.data.cartInfo.products
+    if (products.length === 0) {
+      Toast.fail('购物车为空，请添加商品');
+      return
+    }
+    // 这里不用传递参数，我们可以直接获取全局的购物车来进行支付
+    wx.navigateTo({
+      url: `/pages/comsumer/placeOrder/placeOrder?paymentType=0`,
+    })
+  },
+  onBuyNow(e) { // 立即购买
+    var product = this.data.productDetail
+    product.size = product.sizes[this.data.selelctSizeIndex]
+    product.productId = product.id
+    product.number = 1
+    const productJson = JSON.stringify(product)
+    console.log(product);
+    wx.navigateTo({
+      url: `/pages/comsumer/placeOrder/placeOrder?paymentType=1&product=${productJson}`,
+    })
+  },
+  onToCart(e) {
+    let product = this.data.productDetail
+    const globalData = getApp().globalData
+    const cartInfo = globalData.cartInfo
+    const index = cartInfo.products.findIndex(d => d.id === product.id)
+    product.sizes = [product.sizes[this.data.selelctSizeIndex]]
+    if (index === -1) {
+      // 计算新的总价和商品总数
+      product.number = 1
+      cartInfo.products.push(product)
+    } else {
+      cartInfo.products[index].number += 1;
+    }
+    cartInfo.totalPrice += product.price;
+    cartInfo.number += 1;
+    this.setData({
+      cartInfo: cartInfo
+    })
+    Toast.success("添加成功")
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
     const systemInfo = wx.getSystemInfoSync();
+    const app = getApp()
+    const globalData = app.globalData;
+    let products = []
+    api.getProductList(this.data.productCurrent, this.data.typeName)
+      .then(res => {
+        products = res.data.data
+        let footerShow = false
+        if (products.length >= 0 && products.length < 10) {
+          footerShow = true
+        }
+        this.setData({
+          products: products,
+          footerShow: footerShow,
+          productCurrent: this.data.productCurrent
+        })
+      }).catch(err => {
+        // 失败回调
+      })
     this.setData({
       windowHeight: systemInfo.windowHeight,
       cartInfo: globalData.cartInfo,

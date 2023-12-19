@@ -28,12 +28,60 @@ module.exports = {
       searchKey: searchKey,
     })
   },
+  deleteProduct(id) {
+    return request.post('/product/delete', {id: id})
+  },
+  AndOrUpdateProduct(data) {
+    return request.post('/product/addAndUpdate', data)
+  },
 
+  /**
+    美甲项目
+  */
+  getmanicureProjectList(current) {
+    return request.get('/manicureProject/list', {
+      current: current,
+    })
+  },
+  deletemanicureProject(id) {
+    return request.post('/manicureProject/delete', {id: id})
+  },
+  AndOrUpdatemanicureProject(data) {
+    return request.post('/manicureProject/addAndUpdate', data)
+  },
+
+  /**
+   * 美甲师
+   */
+  getManicuristtList() {
+    return request.get('/manicurist/list')
+  },
+  deleteManicurist(id) {
+    return request.post('/manicurist/delete', {id: id})
+  },
+  AndOrUpdateManicurist(data) {
+    return request.post('/manicurist/addAndUpdate', data)
+  },
   /**
    * 订单
    */
   createOrder(param) {
     return request.post('/order/createOrder', param)
+  },
+  getOrderList(current, status) {
+    if (status == undefined) {
+      status = ''
+    }
+    return request.get('/order/list', {
+      current: current,
+      status: status
+    })
+  },
+  updateOrderStatus(orderId, orderStatus) {
+    return request.post('/order/updateOrderStatus', {
+      orderId: orderId,
+      orderStatus: orderStatus
+    })
   },
   /*
     地址接口
@@ -43,5 +91,12 @@ module.exports = {
   },
   getDefaultAddress() {
     return request.get('/address/getDefaultAddress', {})
+  },
+
+  /**
+   * 评论
+   */
+  addComment(comment) {
+    return request.post('/comment/addOrUpdate', comment)
   },
 }

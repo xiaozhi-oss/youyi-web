@@ -89,7 +89,7 @@ Page({
     let cartInfo = app.globalData.cartInfo;
     // 检查商品是否已经在购物车中
     let existingProductIndex = cartInfo.products.findIndex(p => p.id === product.id);
-    product.sizes = [product.sizes[this.data.selelctSizeIndex]]
+    product.size = product.sizes[this.data.selelctSizeIndex]
     // 放入到购物车中
     if (existingProductIndex !== -1) {
       // 如果商品已经在购物车中，则增加数量
@@ -253,8 +253,14 @@ Page({
     })
   },
   onBuyNow(e) {  // 立即购买
+    var product = this.data.productDetail
+    product.size = product.sizes[this.data.selelctSizeIndex]
+    product.productId = product.id
+    product.number = 1
+    const productJson = JSON.stringify(product)
+    console.log(product);
     wx.navigateTo({
-      url: `/pages/comsumer/placeOrder/placeOrder?paymentType=1`,
+      url: `/pages/comsumer/placeOrder/placeOrder?paymentType=1&product=${productJson}`,
     })
   },
   onToCart(e) {
