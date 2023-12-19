@@ -11,11 +11,21 @@ const request = function (url, options) {
         'Authorization': app.globalData.token
       },
       success: (res) => {
-        if (res.data.status === 500) {
-          Toast.fail('res.data.message');
-          reject(res.data.message)
+        if (res.data.status === '401') {
+          // 重新登录
+          Toast.fail("请重新登录...")
+          setTimeout(() => {
+            wx.navigateTo({
+              url: '/pages/user/login/login',
+            })
+          }, 1000);
+          return 
+        } else if (res.data.status === '500') {
+          Toast.fail(res.data.data[0])
+          return
         } else {
           resolve(res)
+          // 重新登录
         }
       },
       fail: (err) => {

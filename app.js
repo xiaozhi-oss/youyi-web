@@ -1,25 +1,13 @@
 // app.js
+
 App({
   onLaunch() {
-    // 展示本地存储能力
-    // 从缓存中获取用户信息
-
-
-    // const logs = wx.getStorageSync('logs') || []
-    // logs.unshift(Date.now())
-    // wx.setStorageSync('logs', logs)
-
-    // 登录
-    // wx.login({
-    //   success: res => {
-    //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
-    //   }
-    // })
+    // this.globalData.token = wx.getStorageSync('token')
   },
   globalData: {
-    baseUrl: 'http://10.23.165.177:8888/youyi',
-    token: '',
-    isStoreShow: true,
+    baseUrl: 'http://localhost:8888/youyi',
+    token: 'aecd782c-d7ed-4612-9991-feb2ffbfcc35',
+    isStoreShow: false,
     selectMainicurist: {
       id: '',
       name: ''

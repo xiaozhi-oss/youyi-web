@@ -4,27 +4,27 @@
       <view wx:for="{{ orderList }}" wx:key="orderId" class="item">
         <view class="item-top">
           <text>订单号：{{ item.orderId }}</text>
-          <text>{{ statusList[item.status] }}</text>
+          <text>{{ statusList[item.orderStatus] }}</text>
         </view>
         <block wx:for="{{ item.productInfoList }}" wx:for-item="productInfo" wx:key="index">
           <view class="item-content">
             <view class="img-con">
-              <van-image image-class="img-class" width="6.5rem" height="6.5rem" src="{{ productInfo.productUrl }}" />
+              <van-image image-class="img-class" width="6.5rem" height="6.5rem" src="{{ productInfo.url }}" />
             </view>
             <view class="product-info">
               <view class="describe">
-                <text>{{ productInfo.productName }}</text>
+                <text>{{ productInfo.name }}</text>
               </view>
               <view class="product-info-middle">
                 <view class="size">
-                  <text>{{ productInfo.productSize }}</text>
+                  <text>{{ productInfo.size }}</text>
                 </view>
                 <view class="actual-payment">
-                  <text>X{{ productInfo.productNumber }}</text>
+                  <text>X{{ productInfo.number }}</text>
                 </view>
               </view>
               <view class="con-bootom">
-                <text>¥{{ productInfo.productPrice }}</text>
+                <text>¥{{ productInfo.price }}</text>
               </view>
             </view>
           </view>
@@ -35,22 +35,22 @@
         <view class="item-footer">
           <view class="order-time">
             <text>下单时间：</text>
-            <text>{{ item.time }}-12:30</text>
+            <text>{{ item.createTime }}</text>
           </view>
           <view class="op-btn">
             <view class="item-footer-top">
               <text>实付款 ¥{{ item.totalPrice }}</text>
               <text>总数 {{ item.totalNumber }}</text>
             </view>
-            <view class="refund">
+            <view class="refund" wx:if="{{ item.orderStatus === 3 }}">
               <view><text>退款类型：退货退款</text></view>
               <view><text>退款原因：不喜欢</text></view>
             </view>
             <view class="btn-con">
-              <van-button wx:if="{{ item.status !== 0 }}" data-id="{{ item.orderId }}" plain bind:click="toViewLogisticsPage" custom-class="btn-class" round>查看物流</van-button>
-              <van-button wx:if="{{ item.status === 0 }}" plain custom-class="btn-class" round>确认发货</van-button>
-              <van-button wx:if="{{ item.status === 3 }}" plain custom-class="btn-class" round>拒绝退款</van-button>
-              <van-button wx:if="{{ item.status === 3 }}" plain custom-class="btn-class" round>同意退款</van-button>
+              <van-button wx:if="{{ item.orderStatus !== 0 }}" data-id="{{ item.orderId }}" plain bind:click="toViewLogisticsPage" custom-class="btn-class" round>查看物流</van-button>
+              <van-button wx:if="{{ item.orderStatus === 0 }}" plain custom-class="btn-class" round data-id="{{ item.orderId }}" bind:click="onConfirmShipment">确认发货</van-button>
+              <van-button wx:if="{{ item.orderStatus === 3 }}" plain custom-class="btn-class" round data-id="{{ item.orderId }}" bind:click="onRefusalToRefund">拒绝退款</van-button>
+              <van-button wx:if="{{ item.orderStatus === 3 }}" plain custom-class="btn-class" round data-id="{{ item.orderId }}" bind:click="onAgreeToRefund">同意退款</van-button>
             </view>
           </view>
         </view>

@@ -1,0 +1,47 @@
+.container {
+  background-color: #fff;
+  height: 100%;
+}
+.items {
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0eeee;
+  padding-top: 20rpx;
+  padding-bottom: 15rpx;
+}
+.right-con {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-left: 20rpx;
+}
+.bootom-text {
+  width: 400rpx;
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.right-last {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.send-time {
+  font-size: 25rpx;
+  color: #999999;
+}
+.message-count {
+  padding: 5rpx;
+  border-radius: 30rpx;
+  color: #fff;
+  font-size: 22rpx;
+  background-color: #f7955d;
+}
+

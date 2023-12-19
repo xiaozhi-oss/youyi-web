@@ -1,4 +1,5 @@
-// pages/store-product-management/add-update-project/add-update-project.js
+import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   /**
@@ -12,32 +13,48 @@ Page({
     miaoshu: '',
     fileList: [],
   },
+  onSubmit(e) {
+    const product = {
+      id: this.data.id,
+      name: this.data.name,
+      newPrice: this.data.newPrice,
+      oldPrice: this.data.oldPrice,
+      miaoshu: this.data.miaoshu,
+      url: this.data.fileList[0].url,
+    }
+    api.AndOrUpdatemanicureProject(product)
+    .then(res => {
+      Toast.success("提交成功")
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 1000)
+    }).catch(err => {
+      // 失败回调
+    })
+  },
   uploadFile(event) {
-    const {
-      file
-    } = event.detail;
+    const { file } = event.detail;
+    var self = this
     wx.uploadFile({
-      url: 'https://example.weixin.qq.com/upload',
+      url: getApp().globalData.baseUrl + "/upload",
       filePath: file.url,
-      name: 'file',
-      formData: {
-        user: 'test'
-      },
+      name: 'imgList',
+      header: { 'content-type': 'multipart/form-data' },
       success(res) {
+        const imgUrl = JSON.parse(res.data).data
         // 上传完成需要更新 fileList
-        const {
-          fileList = []
-        } = this.data;
+        var fileList = self.data.fileList
         fileList.push({
-          ...file,
-          url: res.data
+          url: imgUrl[0],
+          isImage: true,
+          deletable: true,
         });
-        this.setData({
-          fileList
+        self.setData({
+          fileList: fileList
         });
-      },
+      }
     });
-
+    
   },
   deleteImg(e) {
     this.setData({

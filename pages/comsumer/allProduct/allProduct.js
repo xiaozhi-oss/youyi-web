@@ -89,13 +89,14 @@ Page({
     let cartInfo = app.globalData.cartInfo;
     // 检查商品是否已经在购物车中
     let existingProductIndex = cartInfo.products.findIndex(p => p.id === product.id);
+    product.size = product.sizes[this.data.selelctSizeIndex]
     // 放入到购物车中
     if (existingProductIndex !== -1) {
       // 如果商品已经在购物车中，则增加数量
-      cartInfo.products[existingProductIndex].quantity += 1;
+      cartInfo.products[existingProductIndex].number += 1;
     } else {
       // 如果商品不在购物车中，则添加一个新的商品项
-      cartInfo.products.push({ ...product, quantity: 1 });
+      cartInfo.products.push({ ...product, number: 1 });
     }
     // 计算新的总价和商品总数
     cartInfo.totalPrice += product.price;
@@ -105,6 +106,7 @@ Page({
     this.setData({
       cartInfo: cartInfo,
     });
+    Toast.success("添加成功")
   },
   onQuantityChange(e) {
     const app = getApp()
@@ -115,15 +117,15 @@ Page({
     let existingProductIndex = cartInfo.products.findIndex(p => p.id === productId);
     if (existingProductIndex !== -1) {;
       // 将数量修改为最新数量
-      cartInfo.products[existingProductIndex].quantity = value;
+      cartInfo.products[existingProductIndex].number = value;
     }
     // 重新计算购物车
     cartInfo.number = 0
     cartInfo.totalPrice = 0
     for (let i=0; i < cartInfo.products.length; i++) {
       const p = cartInfo.products[i]
-      cartInfo.number += p.quantity
-      cartInfo.totalPrice += p.price * p.quantity
+      cartInfo.number += p.number
+      cartInfo.totalPrice += p.price * p.number
     }
     // 更新全局变量
     app.globalData.cartInfo = cartInfo
@@ -140,7 +142,7 @@ Page({
     const product = cartInfo.products[existingProductIndex]
     if (existingProductIndex !== -1) {
       // 如果商品已经在购物车中，则增加数量
-      product.quantity += 1;
+      product.number += 1;
     }
     // 计算新的总价和商品总数
     cartInfo.totalPrice += product.price;
@@ -160,7 +162,7 @@ Page({
     const product = cartInfo.products[existingProductIndex]
     if (existingProductIndex !== -1) {
       // 如果商品已经在购物车中，则减少数量
-      product.quantity -= 1;
+      product.number -= 1;
     }
     // 计算新的总价和商品总数
     cartInfo.totalPrice -= product.price;
@@ -177,8 +179,8 @@ Page({
     let cartInfo = app.globalData.cartInfo;
     let productIndex = cartInfo.products.findIndex(p => p.id === productId)
     const p = cartInfo.products[productIndex]
-    cartInfo.number -= p.quantity
-    cartInfo.totalPrice -= p.quantity * p.price
+    cartInfo.number -= p.number
+    cartInfo.totalPrice -= p.number * p.price
     cartInfo.products.splice(productIndex, 1)
     // 更新全局变量
     app.globalData.cartInfo = cartInfo;
@@ -245,24 +247,53 @@ Page({
       Toast.fail('购物车为空，请添加商品');
       return
     }
-    // 转成json格式传递
-    const param = JSON.stringify(products)
+    // 这里不用传递参数，我们可以直接获取全局的购物车来进行支付
     wx.navigateTo({
-      url: `/pages/comsumer/placeOrder/placeOrder?param=${param}`,
+      url: `/pages/comsumer/placeOrder/placeOrder?paymentType=0`,
     })
   },
-  onByNow(e) {  // 立即购买
-
+  onBuyNow(e) {  // 立即购买
+    var product = this.data.productDetail
+    product.size = product.sizes[this.data.selelctSizeIndex]
+    product.productId = product.id
+    product.number = 1
+    const productJson = JSON.stringify(product)
+    console.log(product);
+    wx.navigateTo({
+      url: `/pages/comsumer/placeOrder/placeOrder?paymentType=1&product=${productJson}`,
+    })
+  },
+  onToCart(e) {
+    let product = this.data.productDetail
+    const globalData = getApp().globalData
+    const cartInfo = globalData.cartInfo
+    const index = cartInfo.products.findIndex(d => d.id === product.id)
+    product.sizes = [product.sizes[this.data.selelctSizeIndex]]
+    if (index === -1) {
+      // 计算新的总价和商品总数
+      product.number = 1
+      cartInfo.products.push(product)
+    } else {
+      cartInfo.products[index].number += 1;
+    }
+    cartInfo.totalPrice += product.price;
+    cartInfo.number += 1;
+    this.setData({
+      cartInfo: cartInfo
+    })
+    Toast.success("添加成功")
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    let searchKey = options.searchKey
     const systemInfo = wx.getSystemInfoSync();
     const app = getApp()
     const globalData = app.globalData;
     let products = []
-    api.getProductList(this.data.productCurrent).then(res => {
+    api.getProductList(this.data.productCurrent, searchKey)
+    .then(res => {
       products = res.data.data
       if (products.length === 0) {
         this.setData({ footerShow: true })

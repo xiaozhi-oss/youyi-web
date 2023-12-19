@@ -8,43 +8,45 @@
       <view wx:for="{{ orderList }}" wx:key="orderId" class="item">
         <view class="item-top">
           <text>订单号：{{ item.orderId }}</text>
-          <text>{{ statusList[item.status] }}</text>
+          <text>{{ statusList[item.orderStatus] }}</text>
         </view>
-        <view class="item-content" wx:for="{{ item.productInfoList }}" wx:for-item="productInfo">
+        <view class="item-content" wx:for="{{ item.productInfoList }}" wx:for-item="productInfo" wx:key="id">
           <view class="img-con">
-            <van-image image-class="img-class" width="6.5rem" height="6.5rem" src="{{ productInfo.productUrl }}" />
+            <van-image image-class="img-class" width="6.5rem" height="6.5rem" src="{{ productInfo.url }}" />
           </view>
           <view class="product-info">
             <view class="describe">
-              <text>{{ productInfo.productName }}</text>
+              <text>{{ productInfo.name }}</text>
             </view>
             <view class="product-info-middle">
               <view class="size">
-                <text>{{ productInfo.productSize }}</text>
+                <text>{{ productInfo.size }}</text>
               </view>
               <view class="actual-payment">
-                <text>X{{ productInfo.productNumber }}</text>
+                <view><text>X{{ productInfo.number }}</text></view>
+                <van-button data-id="{{ productInfo.productId }}" plain wx:if="{{ item.orderStatus === 2 &&productInfo.reviewStatus !== 1}}" bind:click="onReviewPopopOpen" custom-class="btn-class" round>评价</van-button>
               </view>
             </view>
             <view class="price">
-              <text>¥{{ productInfo.productPrice }}</text>
+              <text>¥{{ productInfo.price }}</text>
             </view>
           </view>
         </view>
         <view class="item-footer">
           <view class="order-time">
             <text>下单时间：</text>
-            <text>{{ item.time }}-12:30</text>
+            <text>{{ item.createTime }}</text>
           </view>
           <view class="op-btn">
             <view class="item-footer-top">
               <text>实付款 ¥{{ item.totalPrice }}</text>
               <text>总数 {{ item.totalNumber }}</text>
             </view>
-            <van-button plain bind:click="toViewLogisticsPage" custom-class="btn-class" round>查看物流</van-button>
-            <van-button wx:if="{{ false }}" plain custom-class="btn-class" round>确认发货</van-button>
-            <van-button plain wx:if="{{ true }}" bind:click="onReviewPopopOpen" custom-class="btn-class" round>评价</van-button>
-            <van-button plain custom-class="btn-class" bind:click="onAfterSalesOrRefunds" round>售后/退款</van-button>
+            <view style="display: flex; justify-content: flex-end;">
+              <van-button wx:if="{{ item.orderStatus > 0 }}" data-addressId="item.addressId" plain bind:click="toViewLogisticsPage" custom-class="btn-class" round>查看物流</van-button>
+              <van-button wx:if="{{ item.orderStatus === 1 }}" plain custom-class="btn-class" round>确认收货</van-button>
+              <van-button plain custom-class="btn-class" bind:click="onAfterSalesOrRefunds" round>售后/退款</van-button>
+            </view>
           </view>
         </view>
       </view>
@@ -115,14 +117,13 @@
       </view>
       <view class="voucher">
         <view class="card-title">
-        <text>评价内容</text>
+          <text>评价内容</text>
         </view>
         <view class="textarea-con">
-          <textarea maxlength="300" cursor-spacing="200rpx" 
-          model:value="{{ describeContent }}" placeholder="评价" />
+          <textarea maxlength="300" cursor-spacing="200rpx" model:value="{{ describeContent }}" placeholder="评价" />
         </view>
         <view class="img-con">
-          <van-uploader bind:delete="imageDelectEvent" file-list="{{ fileList }}" />
+          <van-uploader bind:after-read="uploadFile" bind:delete="deleteImg" file-list="{{ fileList }}" />
         </view>
       </view>
     </view>

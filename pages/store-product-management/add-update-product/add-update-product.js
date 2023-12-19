@@ -1,18 +1,44 @@
-// pages/store-product-management/add-update-product/add-update-product.js
+import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    id: '',
     name: '',
     price: '',
-    mioashu: '',
+    miaoshu: '',
     kucun: '',
-    sizes: [ 'M码', 'S码', 'L码' ],
+    sizes: ['M码', 'S码', 'L码'],
     fileList: [],
     addInputOpen: false,
     sizeInputValue: '',
+  },
+  onSubmit(e) {
+    let size = ''
+    this.data.sizes.forEach(s => {
+      size += s + "-"
+    })
+    const product = {
+      id: this.data.id,
+      name: this.data.name,
+      price: this.data.price,
+      miaoshu: this.data.miaoshu,
+      kucun: this.data.kucun,
+      url: this.data.fileList[0].url,
+      size: size,
+    }
+    api.AndOrUpdateProduct(product)
+    .then(res => {
+      Toast.success("提交成功")
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 1000)
+    }).catch(err => {
+      // 失败回调
+    })
   },
   onAddSize(e) {
     this.setData({
@@ -37,31 +63,28 @@ Page({
     })
   },
   uploadFile(event) {
-    const {
-      file
-    } = event.detail;
+    const { file } = event.detail;
+    var self = this
     wx.uploadFile({
-      url: 'https://example.weixin.qq.com/upload',
+      url: getApp().globalData.baseUrl + "/upload",
       filePath: file.url,
-      name: 'file',
-      formData: {
-        user: 'test'
-      },
+      name: 'imgList',
+      header: { 'content-type': 'multipart/form-data' },
       success(res) {
+        const imgUrl = JSON.parse(res.data).data
         // 上传完成需要更新 fileList
-        const {
-          fileList = []
-        } = this.data;
+        var fileList = self.data.fileList
         fileList.push({
-          ...file,
-          url: res.data
+          url: imgUrl[0],
+          isImage: true,
+          deletable: true,
         });
-        this.setData({
-          fileList
+        self.setData({
+          fileList: fileList
         });
-      },
+      }
     });
-
+    
   },
   deleteImg(e) {
     this.setData({
@@ -83,14 +106,13 @@ Page({
         miaoshu: productObj.miaoshu,
         sizes: productObj.sizes,
         kucun: productObj.kucun,
-        fileList: [
-          {
-            url: productObj.url,
-            name: 'imgUrl',
-            isImage: true,
-            deletable: true,
-          }
-        ],
+        id: productObj.id,
+        fileList: [{
+          url: productObj.url,
+          name: 'imgUrl',
+          isImage: true,
+          deletable: true,
+        }],
       })
     }
     wx.setNavigationBarTitle({

@@ -60,6 +60,11 @@
 .size {
   color: #ADABA8;
 }
+.actual-payment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 .actual-payment > text:first-child {
   color: #ADABA8;
 }

@@ -1,5 +1,5 @@
-
-// pages/store/nail-artist-management/nail-artist-management.js
+import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   /**
@@ -7,47 +7,7 @@ Page({
    */
   data: {
     windowHeight: 0,
-    manicurists: [
-      {
-        id: 1,
-        url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Peanut',
-        name: '小八嘎',
-        employmentTime: 7,
-        works: [
-          "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png",
-          "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png",
-          "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/4.png"
-        ],
-        reservationCount: 23,
-        good: 234,
-      },
-      {
-        id: 2,
-        url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Peanut',
-        name: '小八嘎',
-        employmentTime: 7,
-        works: [
-          "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png",
-          "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png",
-          "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/4.png"
-        ],
-        reservationCount: 23,
-        good: 234,
-      },
-      {
-        id: 3,
-        url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Peanut',
-        name: '小八嘎',
-        employmentTime: 7,
-        works: [
-          "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png",
-          "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png",
-          "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/4.png"
-        ],
-        reservationCount: 23,
-        good: 234,
-      }
-    ]
+    manicurists: []
   },
   onDeleteManicurist(e) {
     const manicuristId = e.currentTarget.dataset.id
@@ -70,6 +30,15 @@ Page({
    */
   onLoad(options) {
     const systemInfo = wx.getSystemInfoSync();
+    api.getManicuristtList()
+      .then(res => {
+        const manicurists = res.data.data
+        this.setData({
+          manicurists: manicurists,
+        })
+      }).catch(err => {
+        // 失败回调
+      })
     this.setData({
       windowHeight: systemInfo.windowHeight,
     });
@@ -87,6 +56,15 @@ Page({
    */
   onShow() {
     this.getTabBar().init();
+    api.getManicuristtList()
+      .then(res => {
+        const manicurists = res.data.data
+        this.setData({
+          manicurists: manicurists,
+        })
+      }).catch(err => {
+        // 失败回调
+      })
   },
 
   /**

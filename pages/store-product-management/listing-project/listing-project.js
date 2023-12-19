@@ -1,4 +1,5 @@
-
+import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   /**
@@ -6,50 +7,49 @@ Page({
    */
   data: {
     windowHeight: 0,
-    projects: [
-      {
-        id: 1,
-        name: '纯色美甲|颜色任选',
-        url: 'https://img.yzcdn.cn/vant/cat.jpeg',
-        newPrice: 499.9,
-        oldPrice: 129.9,
-        miaoshu: '包含手部基础护理，护甲造型设计等'
-      },
-      {
-        id: 2,
-        name: '纯色美甲|颜色任选',
-        url: 'https://img.yzcdn.cn/vant/cat.jpeg',
-        newPrice: 499.9,
-        oldPrice: 129.9,
-        miaoshu: '包含手部基础护理，护甲造型设计等'
-      },
-      {
-        id: 3,
-        name: '纯色美甲|颜色任选',
-        url: 'https://img.yzcdn.cn/vant/cat.jpeg',
-        newPrice: 499.9,
-        oldPrice: 129.9,
-        miaoshu: '包含手部基础护理，护甲造型设计等'
-      },
-      {
-        id: 4,
-        name: '纯色美甲|颜色任选',
-        url: 'https://img.yzcdn.cn/vant/cat.jpeg',
-        newPrice: 499.9,
-        oldPrice: 129.9,
-        miaoshu: '包含手部基础护理，护甲造型设计等'
-      },
-    ]
+    projects: [],
+    pageCurrent: 1,
+    footerShow: false,
+  },
+  onScrollToLower(e) {
+    if (!this.data.loading && !this.data.footerShow) {
+      this.setData({loading: true});
+      api.getmanicureProjectList(this.data.pageCurrent + 1)
+      .then(res => {
+        const projects = res.data.data
+        var footerShow = false
+        if (projects.length >= 0 && projects.length < 10) {
+          footerShow = true
+        }
+        const productList = this.data.projects
+        productList.push(...projects)
+        this.setData({
+          projects: productList,
+          footerShow: footerShow,
+          loading: false,
+          pageCurrent: this.data.pageCurrent + 1
+        })
+      }).catch(err => {
+        // 失败回调
+      })
+    }
   },
   onDeleteProject(e) {
     // e.currentTarget.dataset.*
     const id = e.currentTarget.dataset.id
-    const projectList = this.data.projects
-    const index = projectList.findIndex(p => p.id === id)
-    projectList.splice(index, 1)
-    this.setData({
-      projects: projectList
-    })
+    api.deletemanicureProject(id)
+      .then(res => {
+        const projectList = this.data.projects
+        const index = projectList.findIndex(p => p.id === id)
+        projectList.splice(index, 1)
+        this.setData({
+          projects: projectList
+        })
+        Toast.success("删除成功")
+      }).catch(err => {
+        // 失败回调
+      })
+    
   },
   onAddUpdate(e) {
     const project = e.currentTarget.dataset.project
@@ -64,8 +64,22 @@ Page({
    */
   onLoad(options) {
     const systemInfo = wx.getSystemInfoSync();
+    api.getmanicureProjectList(1)
+      .then(res => {
+        const projects = res.data.data
+        var footerShow = false
+        if (projects.length >= 0 && projects.length < 10) {
+          footerShow = true
+        }
+        this.setData({
+          projects: projects,
+          footerShow: footerShow
+        })
+      }).catch(err => {
+        // 失败回调
+      })
     this.setData({
-      windowHeight: systemInfo.windowHeight,
+      windowHeight: systemInfo.windowHeight
     });
   },
 
@@ -80,7 +94,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    api.getmanicureProjectList(1)
+    .then(res => {
+      const projects = res.data.data
+      var footerShow = false
+      if (projects.length >= 0 && projects.length < 10) {
+        footerShow = true
+      }
+      this.setData({
+        projects: projects,
+        footerShow: footerShow
+      })
+    }).catch(err => {
+      // 失败回调
+    })
   },
 
   /**

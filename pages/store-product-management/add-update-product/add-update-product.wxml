@@ -41,5 +41,7 @@
 </view>
 
 <view class="addAdressBtn">
-  <van-button bind:click="onAddAddress" custom-class="addAdressBtnClass" icon="success" round block type="warning">提交</van-button>
+  <van-button bind:click="onSubmit" custom-class="addAdressBtnClass" icon="success" round block type="warning">提交</van-button>
 </view>
+
+<van-toast id="van-toast" />

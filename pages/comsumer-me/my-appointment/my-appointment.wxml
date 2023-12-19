@@ -1,8 +1,9 @@
 <view class="container">
   <van-tabs active="{{ active }}" bind:change="onTagChange">
-    <van-tab title="进行中"></van-tab>
-    <van-tab title="已完成"></van-tab>
-    <van-tab title="已失效"></van-tab>
+    <van-tab title="未确认" name="0"></van-tab>
+    <van-tab title="进行中" name="1"></van-tab>
+    <van-tab title="已完成" name="2"></van-tab>
+    <van-tab title="已失效" name="3"></van-tab>
   </van-tabs>
   <scroll-view bindscrolltolower="onScrollToLower" scroll-y="true" style="height: {{ windowHeight - 50 }}px;">
     <view class="items">
@@ -19,12 +20,15 @@
               </view>
             </view>
             <view class="project-status">
-              <text class="text">{{ item.status }}</text>
+              <text class="text">{{ statusList[item.status] }}</text>
             </view>
           </view>
           <view class="bootom">
-            <van-icon color="#ECCFB9" name="underway-o" />
-            <text class="text">{{ item.date }}</text>
+            <view>
+              <van-icon color="#ECCFB9" name="underway-o" />
+              <text class="text">{{ item.date }}</text>
+            </view>
+            <van-button data-id="{{ item.id }}" bind:click="onViewInfo" type="warning" size="small" round plain>查看</van-button>
           </view>
         </view>
       </block>
@@ -37,3 +41,16 @@
     </view>
   </scroll-view>
 </view>
+<van-popup show="{{ isInfoShow }}" round position="bottom" custom-style="height: 40%" bind:close="onCloseInfoPopup">
+  <view class="con">
+    <van-cell-group inset>
+      <van-cell icon="friends-o" title="{{ apponitmentInfo.name }}" />
+      <van-cell icon="phone-circle-o" title="{{ apponitmentInfo.phone }}" />
+      <van-cell icon="friends-o" title="{{ apponitmentInfo.mainicuristName }}" />
+      <van-cell icon="orders-o" title="{{ apponitmentInfo.date }}" />
+    </van-cell-group>
+    <view class="btn">
+      <van-button bind:click="onViewInfo" type="warning" size="large" round plain>确认</van-button>
+    </view>
+  </view>
+</van-popup>

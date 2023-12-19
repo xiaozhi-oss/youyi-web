@@ -1,3 +1,4 @@
+@import './miniprogram_npm/@vant/weapp/common/index.wxss';
 page {
   /* 全局背景设置 */
   background: #FFAFBD;

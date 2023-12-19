@@ -1,7 +1,7 @@
 <!--pages/comsumer/home/home.wxml-->
 <view>
   <view class="search">
-    <van-search custom-class="search-class" value="{{ value }}" placeholder="搜索商品" bind:search="onSearch" />
+    <van-search custom-class="search-class" model:value="{{ searchKey }}" placeholder="搜索商品" bind:search="onSearch" />
   </view>
   <view class="content">
     <view class="view-product card-wrap">

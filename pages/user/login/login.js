@@ -1,38 +1,50 @@
 const api = require("@utils/api")
+import Toast from '/@vant/weapp/toast/toast';
 Page({
 
   data: {
     checked: true,
-    phone: '',
-    pwd: ''
+    username: '',
+    password: ''
   },
   onChange(event) {
     this.setData({
       checked: event.detail,
     });
   },
-  onPhoneChange(e) {
-    this.setData({
-      phone: e.detail
-    })
-  },
   onLogin(e) {
-    
-    console.log(this.data.phone);
-    if (this.data.phone === '1') {
-      this.setData({
-        phone: ''
-      })
-      this.globalData.isStoreShow = true
-      wx.reLaunch({
-        url: '/pages/store-bar/index/index'
-      })
-    } else {
-      this.globalData.isStoreShow = false
-      wx.reLaunch({
-        url: '/pages/comsumer/home/home'
-      })
-    }
+    let index = "/pages/comsumer/home/home"
+    const storeIndex = "/pages/store-bar/index/index"
+    Toast.loading({
+      message: '登录中...',
+      forbidClick: true,
+      loadingType: 'spinner',
+    });
+    api.login(this.data.username, this.data.password)
+    .then(res => {
+      const token = res.data.data
+      // 设置缓存
+      wx.setStorageSync('token', token)
+      // 设置全局变量
+      const app = getApp();
+      const globalData = app.globalData;
+      globalData.isStoreShow = false
+      globalData.token = token
+      Toast.success("登录成功")
+      if (this.data.username === 'root') {
+        index = storeIndex
+        globalData.isStoreShow = true
+      }
+      console.log(res.data.data);
+      setTimeout(() => {
+        wx.switchTab({
+          url: index,
+        })
+      }, 1000);
+    })
+    .catch(err => {
+      console.log(err);
+    })
   },
   onWXLogin(e) {
     
@@ -41,8 +53,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const app = getApp();
-    this.globalData = app.globalData;
+    
   },
 
   /**

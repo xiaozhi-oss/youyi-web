@@ -11,10 +11,10 @@
       <block wx:for="{{ products }}" wx:key="id">
         <view class="p-card">
           <view class="card-image">
-            <van-image image-class="card-img-class" width="110" height="110" src="{{ item.url }}" />
+            <van-image data-id="{{ item.id }}" bind:click="toProductDetail" image-class="card-img-class" width="110" height="110" src="{{ item.url }}" />
           </view>
           <view class="info">
-            <span>{{ item.title }}</span>
+            <span>{{ item.name }}</span>
             <view class="add-btn">
               <van-icon data-item="{{ item }}" bind:click="addProductToCart" name="plus" size="40px" />
             </view>
@@ -43,7 +43,7 @@
         <span>合计：<text style="color: red;">¥ {{ cartInfo.totalPrice }}</text></span>
       </view>
       <view class="settlement-button">
-        <span>去结算</span>
+        <span bind:tap="onCartPlaceOrder">去结算</span>
       </view>
     </view>
   </view>
@@ -54,12 +54,12 @@
           <block wx:for="{{ cartInfo.products }}" wx:key="index">
             <view class="p-card">
               <view class="card-image">
-                <van-image image-class="card-img-class" width="130" height="130" src="{{ item.url }}" />
+                <van-image data-id="{{ item.id }}" bind:click="toProductDetail" image-class="card-img-class" width="130" height="130" src="{{ item.url }}" />
               </view>
               <view class="info">
-                <view><span>{{ item.title }}</span></view>
+                <view><span>{{ item.name }}</span></view>
                 <view class="add-btn">
-                  <van-stepper data-id="{{ item.id }}" value="{{ item.quantity }}" bind:blur="onQuantityChange" bind:plus="onQuantityPush" bind:minus="onQuantityMinus" />
+                  <van-stepper data-id="{{ item.id }}" value="{{ item.number }}" bind:blur="onQuantityChange" bind:plus="onQuantityPush" bind:minus="onQuantityMinus" />
                 </view>
                 <view class="price">
                   <view>
@@ -83,4 +83,67 @@
     </van-popup>
   </view>
 </view>
+<van-popup show="{{ isShowProductDetail }}" round root-portal="{{ true }}" position="bottom" custom-style="height: 90%" bind:close="onCloseProductDetailPopup">
+  <scroll-view bindscrolltolower="onReviewScrollToLower" scroll-y="true" style="height: 93%;">
+    <view class="p-container">
+      <image class="img-con" src="{{ productDetail.url }}" mode="scaleToFill" />
+      <view class="product-con">
+        <view class="product-info">
+          <view class="title">
+            <text>{{ productDetail.name }}</text>
+          </view>
+          <view class="tip">
+            <text>{{ productDetail.miaoshu }}</text>
+          </view>
+        </view>
+        <view class="product-size">
+          <van-divider customStyle="color: #FF976A; border-color: #FF976A; font-size: 18px;" contentPosition="center">商品规格</van-divider>
+          <text>尺码</text>
+          <view class="btn-con">
+            <van-button wx:for="{{ sizeList }}" data-index="{{ index }}" bind:click="sizeBtnClick" color="{{ index === selelctSizeIndex ? '#FF9B6F' : '' }}" wx:key="index" custom-class="size-btn" type="default">{{ item }}</van-button>
+          </view>
+        </view>
+        <view class="product-detail">
+          <van-divider customStyle="color: #FF976A; border-color: #FF976A; font-size: 18px;" contentPosition="center">商品详情</van-divider>
+          <image class="img-con" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/detail.jpg" mode="scaleToFill" />
+        </view>
+        <van-divider customStyle="color: #FF976A; border-color: #FF976A; font-size: 18px;" contentPosition="center">评价</van-divider>
+        <view class="reviews">
+          <view class="items">
+            <view class="item" wx:for="{{ reviewList }}" wx:key="id">
+              <view class="user-info">
+                <van-image round width="4rem" height="4rem" src="{{ item.userInfo.url }}" />
+                <text>{{ item.userInfo.username }}</text>
+                <van-tag round type="warning">我的评价</van-tag>
+              </view>
+              <view class="item-content">
+                <view class="product-detail">
+                  <text>已购：{{ item.size }}</text>
+                </view>
+                <view class="review-content">
+                  <view><text>{{ item.content }}</text></view>
+                  <van-grid square="{{ true }}" gutter="{{ 1 }}" column-num="3" border="{{ false }}">
+                    <van-grid-item use-slot wx:for="{{ item.imgList }}" wx:key="index">
+                      <van-image width="210rpx" height="210rpx" fit="contain" src="{{ item }}" />
+                    </van-grid-item>
+                  </van-grid>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="reviews-footer">
+            <text wx:if="{{ isReviewFooterShow }}">诶呀，到底了呀~~~</text>
+            <van-loading wx:if="{{ reviewLoading }}" color="#FF9393" type="spinner" size="30px">
+              <text style="color: #FF9393;">加载中...</text>
+            </van-loading>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <van-goods-action>
+    <van-goods-action-button bind:click="onToCart" color="#FFC3A0" text="加入购物车" type="warning" />
+    <van-goods-action-button bind:click="onBuyNow" color="#FF9B6F" text="立即购买" />
+  </van-goods-action>
+</van-popup>
 <van-toast id="van-toast" />

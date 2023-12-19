@@ -1,5 +1,5 @@
 {
-  "entryPagePath": "pages/store-bar/index/index",
+  "entryPagePath": "pages/comsumer/home/home",
   "pages": [
     "pages/user/login/login",
     "pages/user/register/register",
@@ -30,7 +30,9 @@
     "pages/store-product-management/listing-project/listing-project",
     "pages/store-product-management/add-update-product/add-update-product",
     "pages/store-product-management/add-update-project/add-update-project",
-    "pages/store-order-management/listing-order/listing-order"
+    "pages/store-order-management/listing-order/listing-order",
+    "pages/store-me/listing-message/listing-message",
+    "pages/store-me/user-management/user-management"
   ],
   "tabBar": {
     "custom": true,

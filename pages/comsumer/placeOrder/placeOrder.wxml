@@ -2,10 +2,10 @@
   <view class="container">
     <view class="address">
       <van-cell-group inset custom-class="cell-group-class">
-        <van-cell size='large' is-link border="{{ false }}" center label="广东省 广州市 黄浦区 广州商学院">
+        <van-cell size='large' is-link border="{{ false }}" center label="{{ address.address }}">
           <view slot="title">
-            <text style="font-weight: bold;">小八嘎 </text>
-            <text>13432526519 </text>
+            <text style="font-weight: bold;">{{ address.recipient }} </text>
+            <text>{{ address.phoneNumber }} </text>
           </view>
           <view slot="icon">
             <view class="name-icon">
@@ -23,9 +23,10 @@
               <van-image bind:click="toProductDetail" lazy-load image-class="card-img-class" width="130" height="130" src="{{ item.url }}" />
             </view>
             <view class="info">
-              <span>{{ item.title }}</span>
+              <span>{{ item.name }}</span>
               <view class="add-btn">
-                <van-stepper data-id="{{ item.id }}" value="{{ item.quantity }}" bind:blur="onQuantityChange" bind:plus="onQuantityPush" bind:minus="onQuantityMinus" />
+                <view>{{ item.size }}</view>
+                <van-stepper data-id="{{ item.id }}" value="{{ item.number }}" bind:blur="onQuantityChange" bind:plus="onQuantityPush" bind:minus="onQuantityMinus" />
               </view>
               <view class="price">
                 <view>
