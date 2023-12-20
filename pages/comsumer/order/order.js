@@ -17,6 +17,7 @@ Page({
     loading: false,
     pageCurrent: 1,
     reviewProductId: '',
+    reviewOrderId: '',
     refundReasons: [
       "协商一致退款", "退运费", "大小/尺寸与商品描述不符", "少件/漏件", "包装/商品破损", "少件/漏件", "少件/漏件", "少件/漏件", "大小/尺寸与商品描述不符"
     ],
@@ -24,6 +25,23 @@ Page({
     fileList: [],
     orderList: [],
     statusList: ["未发货" , "已发货", "确认收货", "售后", "售后完成"]
+  },
+  updateOrderStatus(orderId, orderStatus) {
+    const self = this
+    api.updateOrderStatus(orderId, orderStatus)
+    .then(res => {
+      Toast.success("确认收货成功")
+      const orders = self.data.orderList
+      const index = orders.findIndex(o => o.orderId === orderId)
+      orders[index].orderStatus = orderStatus
+      self.setData({
+        orderList: orders
+      })
+    })
+  },
+  onConfirmReceipt(e) {
+    const orderId = e.currentTarget.dataset.id
+    this.updateOrderStatus(orderId, 2)
   },
   onChooseAfterSalesType(event) {
     this.setData({
@@ -44,18 +62,20 @@ Page({
     });
   },
   onReviewPopopOpen(e) {
-    const productId = e.currentTarget.dataset.id
+    const oid = e.currentTarget.dataset.oid
+    const productId = e.currentTarget.dataset.productid
     this.setData({
       reviewProductId: productId,
       reviewShow: true,
       fileList: [],
       describeContent: '',
+      reviewOrderId: oid,
     })
   },
   toViewLogisticsPage(e) {
-    const addressId = e.currentTarget.dataset.addressId
+    const orderId = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: `/pages/comsumer/viewLogistics/viewLogistics?addressId=${addressId}`,
+      url: `/pages/comsumer/viewLogistics/viewLogistics?orderId=${orderId}`,
     })
   },
   // 提交评价
@@ -65,6 +85,7 @@ Page({
     const fileList = this.data.fileList
     if (describeContent === '') {
       Toast.fail("内容不能为空")
+      return 
     }
     var urlList = ''
     fileList.forEach(f => {
@@ -78,11 +99,16 @@ Page({
     const self = this
     api.addComment(comment)
     .then(res => {
-      self.data.productInfoList
-      self.setData({
-        reviewShow: false
-      })
       Toast.success("评论成功~~~")
+      const oid = self.data.reviewOrderId
+      const orderList = self.data.orderList
+      const orderIndex = orderList.findIndex(o => o.id === oid)
+      const productIndex = orderList[orderIndex].productInfoList.findIndex(p => p.id === reviewProductId)
+      orderList[orderIndex].productInfoList[productIndex].reviewStatus = 1
+      self.setData({
+        reviewShow: false,
+        orderList: orderList,
+      })
     })
   },
   onTyleClick(event) {
@@ -195,15 +221,15 @@ Page({
    */
   onLoad(options) {
     const systemInfo = wx.getSystemInfoSync();
+    const self = this
     api.getOrderList(1)
     .then(res => {
       const orderList = res.data.data
-      console.log(orderList);
       let isFooterShow = false
       if (orderList.length > 0 && orderList.length < 10) {
         isFooterShow = true
       }
-      this.setData({
+      self.setData({
         isFooterShow: isFooterShow,
         orderList: orderList
       })
@@ -219,15 +245,15 @@ Page({
   onShow() {
     this.getTabBar().init();
     const systemInfo = wx.getSystemInfoSync();
+    const self = this
     api.getOrderList(1)
     .then(res => {
       const orderList = res.data.data
-      console.log(orderList);
       let isFooterShow = false
       if (orderList.length > 0 && orderList.length < 10) {
         isFooterShow = true
       }
-      this.setData({
+      self.setData({
         isFooterShow: isFooterShow,
         orderList: orderList
       })

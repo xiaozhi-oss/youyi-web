@@ -102,7 +102,7 @@
           <view class="items">
             <view class="item" wx:for="{{ reviewList }}" wx:key="id">
               <view class="user-info">
-                <van-image round width="4rem" height="4rem" src="{{ item.userInfo.url }}" />
+                <van-image round width="4rem" height="4rem" src="{{ item.avgUrl }}" />
                 <text>{{ item.userInfo.username }}</text>
                 <van-tag round type="warning">我的评价</van-tag>
               </view>

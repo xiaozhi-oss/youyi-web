@@ -4,7 +4,7 @@
       <image style="width: 50rpx; height: 50rpx; border-radius: 20px;margin-right: 10rpx;" mode="scaleToFill" src="https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/shunfeng.png"></image>
       <view>
         <text>顺丰快递 </text>
-        <text>2234234235423423 </text>
+        <text>{{ waybillNumber }} </text>
       </view>
     </view>
     <view>
@@ -12,14 +12,14 @@
     </view>
   </view>
   <view class="content">
-    <van-steps active-color="#FF8F72" steps="{{ steps }}" active="{{ active }}" direction="vertical" active-color="#fa6c19" />
+    <van-steps active-color="#FF8F72" steps="{{ LogisticsInfoList }}" active="{{ active }}" direction="vertical" active-color="#fa6c19" />
   </view>
   <view class="footer">
     <view class="footer-left">
       <text class="left-icon">收</text>
     </view>
     <view class="footer-right">
-      <text>小舔猫，13454367654，广东省 广州市 黄浦区 广州商学院</text>
+      <text>{{ address }}</text>
     </view>
   </view>
 </view>

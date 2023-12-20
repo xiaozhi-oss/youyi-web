@@ -6,37 +6,56 @@ Page({
    * 页面的初始数据
    */
   data: {
-    reviewList: [
-      {
-        id: 1,
-        userInfo: {
-          id: 1,
-          username: '小八嘎',
-          url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Jasmine',
-        },
-        size: 'S码',
-        content: '实在是太好看啦，姐妹们买它',
-        imgList: ["https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/4.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/5.png"]
-      },
-      {
-        id: 2,
-        userInfo: {
-          id: 2,
-          username: '小舔',
-          url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Oscar',
-        },
-        size: 'S码',
-        content: '实在是太好看啦，姐妹们买它',
-        imgList: ["https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/4.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/5.png"]
-      }
-    ],
+    windowHeight: 0,
+    footerShow: false,
+    loading: false,
+    pageCurrent: 1,
+    reviewList: [],
   },
-
+  onScrollToLower(e) {
+    if (!this.data.loading && !this.data.footerShow) {
+      this.setData({loading: true});
+      api.getAllCommentList(this.data.pageCurrent + 1)
+      .then(res => {
+        const reviews = res.data.data
+        var footerShow = false
+        if (reviews.length >= 0 && reviews.length < 10) {
+          footerShow = true
+        }
+        const reviewList = this.data.reviewList
+        reviewList.push(...reviews)
+        this.setData({
+          reviewList: reviewList,
+          footerShow: footerShow,
+          loading: false,
+          pageCurrent: this.data.pageCurrent + 1
+        })
+      }).catch(err => {
+        // 失败回调
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    const systemInfo = wx.getSystemInfoSync();
+    const self = this
+    api.getAllCommentList(1)
+    .then(res => {
+      const reviews = res.data.data
+      let footerShow = false
+      if (reviews.length >= 0 && reviews.length < 10) {
+        footerShow = true
+      }
+      self.setData({
+        reviewList: reviews,
+        footerShow: footerShow,
+      })
+    })
+    this.setData({
+      windowHeight: systemInfo.windowHeight
+    });
   },
 
   /**
