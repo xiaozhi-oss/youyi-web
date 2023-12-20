@@ -1,3 +1,6 @@
+import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
+
 // pages/comsumer/viewLogistics/viewLogistics.js
 Page({
 
@@ -5,24 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    steps: [
-      {
-        text: '5-23 17:30',
-        desc: '【北京市】您的包裹已到达北京市中心',
-      },
-      {
-        text: '步骤二',
-        desc: '描述信息',
-      },
-      {
-        text: '步骤三',
-        desc: '描述信息',
-      },
-      {
-        text: '步骤四',
-        desc: '描述信息',
-      },
-    ],
+    address: '',
+    waybillNumber: '',
+    LogisticsInfoList: [],
   },
 
   /**
@@ -30,7 +18,28 @@ Page({
    */
   onLoad(options) {
     const orderId = options.orderId
-    
+    console.log(orderId);
+    api.getOrderLogisticsInfo(orderId)
+    .then(res => {
+      const info = res.data.data
+      console.log(info);
+      const routeList = info.routeList
+      var routes = []
+      for (let i = 0; i < routeList.length; i++) {
+        const route = routeList[i]
+        const desc = '['+route.acceptAddress+'] ' + route.remark
+        const routeInfo = {
+          text: route.acceptTime,
+          desc: desc
+        }
+        routes[i] = routeInfo
+      }
+      this.setData({
+        address: info.addressInfo,
+        waybillNumber: info.waybillNumber,
+        LogisticsInfoList: routes,
+      })
+    })
   },
 
   /**

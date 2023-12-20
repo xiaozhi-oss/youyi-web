@@ -19,7 +19,7 @@
         </view>
       </view>
     </van-cell>
-    <van-cell custom-class="last-bar" is-link="true" url="/pages/comsumer-me/my-appointment/my-appointment">
+    <van-cell custom-class="last-bar" is-link="true" url="/pages/store-me/store-my-appointment/store-my-appointment">
       <view slot="title">
         <view class="van-cell-text">
           <text>预约管理</text>

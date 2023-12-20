@@ -24,7 +24,7 @@
               </view>
               <view class="actual-payment">
                 <view><text>X{{ productInfo.number }}</text></view>
-                <van-button data-id="{{ productInfo.productId }}" plain wx:if="{{ item.orderStatus === 2 &&productInfo.reviewStatus !== 1}}" bind:click="onReviewPopopOpen" custom-class="btn-class" round>评价</van-button>
+                <van-button data-oid="{{ item.id }}" data-productId="{{ productInfo.id }}" plain wx:if="{{ item.orderStatus === 2 & productInfo.reviewStatus !== 1}}" bind:click="onReviewPopopOpen" custom-class="btn-class" round>评价</van-button>
               </view>
             </view>
             <view class="price">
@@ -43,8 +43,8 @@
               <text>总数 {{ item.totalNumber }}</text>
             </view>
             <view style="display: flex; justify-content: flex-end;">
-              <van-button wx:if="{{ item.orderStatus > 0 }}" data-addressId="item.addressId" plain bind:click="toViewLogisticsPage" custom-class="btn-class" round>查看物流</van-button>
-              <van-button wx:if="{{ item.orderStatus === 1 }}" plain custom-class="btn-class" round>确认收货</van-button>
+              <van-button wx:if="{{ item.orderStatus > 0 }}" data-id="{{ item.orderId }}" plain bind:click="toViewLogisticsPage" custom-class="btn-class" round>查看物流</van-button>
+              <van-button wx:if="{{ item.orderStatus === 1 }}" plain data-id="{{ item.orderId }}" bind:click="onConfirmReceipt" custom-class="btn-class" round>确认收货</van-button>
               <van-button plain custom-class="btn-class" bind:click="onAfterSalesOrRefunds" round>售后/退款</van-button>
             </view>
           </view>

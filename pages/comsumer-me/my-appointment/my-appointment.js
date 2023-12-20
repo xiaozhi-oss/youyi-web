@@ -1,4 +1,5 @@
-// pages/comsumer-me/my-appointment/my-appointment.js
+import Toast from '@vant/weapp/toast/toast';
+const api = require("@utils/api")
 Page({
 
   /**
@@ -11,38 +12,27 @@ Page({
     loading: false,
     isInfoShow: false,
     apponitmentInfo: {},
-    apponitmentList: [
-      {
-        id: 1,
-        status: 0,
-        mainicuristName: '伊音儿2',
-        date: '2023-09-01 12:30',
-        name: '小老二',
-        phone: '133534523234',
-        projectName: '半贴甲片 | 不限砖饰'
-      },
-      {
-        id: 2,
-        status: 1,
-        mainicuristName: '伊音儿',
-        date: '2023-09-01',
-        name: '小老二',
-        phone: '133534523234',
-        projectName: '半贴甲片 | 不限砖饰'
-      },
-      {
-        id: 3,
-        status: 2,
-        mainicuristName: '伊音儿',
-        date: '2023-09-01',
-        name: '小老二',
-        phone: '133534523234',
-        projectName: '半贴甲片 | 不限砖饰'
-      },
-    ],
+    apponitmentList: [],
     statusList: [
       "未确认","进行中", "已完成", "已失效" 
     ]
+  },
+  onSubmit(e) {
+    const id = this.data.apponitmentInfo.id
+    const self = this
+    api.updateAppointmentStatus(id, 1)
+    .then(res => {
+      const apponitments = self.data.apponitmentList
+      const index = apponitments.findIndex(a => a.id === id)
+      apponitments.splice(index, 1)
+      self.setData({
+        apponitmentList: apponitments,
+        isInfoShow: false,
+      })
+      Toast.success("确认成功")
+    }).catch(err => {
+      // 失败回调
+    })
   },
   onViewInfo(e) {
     const id = e.currentTarget.dataset.id
@@ -53,7 +43,22 @@ Page({
     this.setData({ isInfoShow: false })
   },
   onTagChange(event) {
-    
+    const status = event.detail.name
+    api.getAppointmentListById(1, status)
+    .then(res => {
+      const apponitments = res.data.data
+      let footerShow = false
+      if (apponitments.length >= 0 && apponitments.length < 10) {
+        footerShow = true
+      }
+      this.setData({ 
+        apponitmentList: apponitments,
+        footerShow: footerShow,
+      })
+      console.log(apponitmentList);
+    }).catch(err => {
+      // 失败回调
+    })
   },
   onScrollToLower(e) {
     if (!this.data.loading && !this.data.isFooterShow) {
@@ -87,6 +92,21 @@ Page({
    */
   onLoad(options) {
     const systemInfo = wx.getSystemInfoSync();
+    api.getAppointmentListById(1, 0)
+    .then(res => {
+      const apponitments = res.data.data
+      let footerShow = false
+      if (apponitments.length >= 0 && apponitments.length < 10) {
+        footerShow = true
+      }
+      this.setData({ 
+        apponitmentList: apponitments,
+        footerShow: footerShow,
+      })
+      console.log(apponitmentList);
+    }).catch(err => {
+      // 失败回调
+    })
     this.setData({
       windowHeight: systemInfo.windowHeight,
     });

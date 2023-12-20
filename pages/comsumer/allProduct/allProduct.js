@@ -14,36 +14,14 @@ Page({
     reviewLoading: false,
     isShowProductDetail: false,
     productCurrent: 1,
+    reviewPage: 1,
     cartInfo: {},
     selelctSizeIndex: 0,
-    sizeList: [ 'S码', 'M码', 'L码', 'XL码' ],
+    sizeList: ['S码', 'M码', 'L码', 'XL码'],
     // 接收后端接收到的商品列表
     products: [],
     productDetail: {},
-    reviewList: [
-      {
-        id: 1,
-        userInfo: {
-          id: 1,
-          username: '小八嘎',
-          url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Jasmine',
-        },
-        size: 'S码',
-        content: '实在是太好看啦，姐妹们买它',
-        imgList: ["https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/4.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/5.png"]
-      },
-      {
-        id: 2,
-        userInfo: {
-          id: 2,
-          username: '小舔',
-          url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Oscar',
-        },
-        size: 'S码',
-        content: '实在是太好看啦，姐妹们买它',
-        imgList: ["https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/4.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/5.png"]
-      }
-    ],
+    reviewList: [],
   },
   sizeBtnClick(e) {
     const index = e.currentTarget.dataset.index
@@ -63,14 +41,30 @@ Page({
       isShowProductDetail: true,
       productDetail: product,
       selelctSizeIndex: 0,
+      reviewLoading: false,
+      isReviewFooterShow: false
     })
+    const self = this
+    api.getCommentListByProductId(1, id)
+      .then(res => {
+        const reviews = res.data.data
+        let isReviewFooterShow = false
+        if (reviews.length >= 0 && reviews.length < 10) {
+          isReviewFooterShow = true
+        }
+        self.setData({
+          reviewList: reviews,
+          reviewLoading: false,
+          isReviewFooterShow: isReviewFooterShow,
+        })
+      })
   },
   onCloseProductDetailPopup(e) {
     this.setData({
       isShowProductDetail: false,
     })
   },
-    /**
+  /**
    * 打开购物车界面
    */
   onOpenCart(e) {
@@ -96,7 +90,10 @@ Page({
       cartInfo.products[existingProductIndex].number += 1;
     } else {
       // 如果商品不在购物车中，则添加一个新的商品项
-      cartInfo.products.push({ ...product, number: 1 });
+      cartInfo.products.push({
+        ...product,
+        number: 1
+      });
     }
     // 计算新的总价和商品总数
     cartInfo.totalPrice += product.price;
@@ -115,14 +112,15 @@ Page({
     const value = e.detail.value <= 0 ? 1 : e.detail.value
     // 修改对应商品的数量
     let existingProductIndex = cartInfo.products.findIndex(p => p.id === productId);
-    if (existingProductIndex !== -1) {;
+    if (existingProductIndex !== -1) {
+      ;
       // 将数量修改为最新数量
       cartInfo.products[existingProductIndex].number = value;
     }
     // 重新计算购物车
     cartInfo.number = 0
     cartInfo.totalPrice = 0
-    for (let i=0; i < cartInfo.products.length; i++) {
+    for (let i = 0; i < cartInfo.products.length; i++) {
       const p = cartInfo.products[i]
       cartInfo.number += p.number
       cartInfo.totalPrice += p.price * p.number
@@ -190,57 +188,52 @@ Page({
   },
   onScrollToLower(e) {
     if (!this.data.loading && !this.data.footerShow) {
-      this.setData({ loading: true });
+      this.setData({
+        loading: true
+      });
       const products = this.data.products
       api.getProductList(this.data.productCurrent)
-      .then(res => {
-        const productList = res.data.data
-        let footerShow = true
-        if (productList.length !== 0) {
-          products.push(...productList)
-          footerShow: false
-        } 
-        this.setData({
-          products: products,
-          loading: false,
-          footerShow: footerShow
+        .then(res => {
+          const productList = res.data.data
+          let footerShow = true
+          if (productList.length !== 0) {
+            products.push(...productList)
+            footerShow: false
+          }
+          this.setData({
+            products: products,
+            loading: false,
+            footerShow: footerShow
+          })
         })
-      })
-      .catch(err => {
+        .catch(err => {
 
-      })
+        })
     }
   },
   onReviewScrollToLower(e) {
     if (!this.data.reviewLoading && !this.data.isReviewFooterShow) {
-      this.setData({ reviewLoading: true });
-      setTimeout(() => {
-        this.setData({ 
-          reviewLoading: false,
-        });
-      }, 2000);
-      const reviewList = this.data.reviewList
-      setTimeout(() => {
-        for(let i=0; i < 10; i++) {
-          reviewList.push(      {
-            id: 2,
-            userInfo: {
-              id: 2,
-              username: '小舔',
-              url: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Oscar',
-            },
-            size: 'S码',
-            content: '实在是太好看啦，姐妹们买它',
-            imgList: ["https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/1.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/3.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/4.png", "https://aoao-jiao.oss-cn-guangzhou.aliyuncs.com/iamge/5.png"]
-          })
+      const self = this
+      const page = self.data.reviewPage + 1
+      const productId = self.data.productDetail.id
+      api.getCommentListByProductId(page, productId)
+      .then(res => {
+        const reviews = res.data.data
+        let isReviewFooterShow = false
+        if (reviews.length >= 0 && reviews.length < 10) {
+          isReviewFooterShow = true
         }
-        this.setData({
-          reviewList: reviewList
+        const reviewList = self.data.reviewList
+        reviewList.push(...reviews)
+        self.setData({
+          reviewList: reviewList,
+          reviewLoading: false,
+          isReviewFooterShow: isReviewFooterShow,
         })
-      }, 2000);
+      })
     }
   },
-  onCartPlaceOrder(e) {   // 购物车下单
+  onCartPlaceOrder(e) { // 购物车下单
     // 获取购物车的商品信息
     const products = this.data.cartInfo.products
     if (products.length === 0) {
@@ -252,7 +245,7 @@ Page({
       url: `/pages/comsumer/placeOrder/placeOrder?paymentType=0`,
     })
   },
-  onBuyNow(e) {  // 立即购买
+  onBuyNow(e) { // 立即购买
     var product = this.data.productDetail
     product.size = product.sizes[this.data.selelctSizeIndex]
     product.productId = product.id
@@ -279,7 +272,8 @@ Page({
     cartInfo.totalPrice += product.price;
     cartInfo.number += 1;
     this.setData({
-      cartInfo: cartInfo
+      cartInfo: cartInfo,
+      isShowProductDetail: false,
     })
     Toast.success("添加成功")
   },
@@ -293,18 +287,20 @@ Page({
     const globalData = app.globalData;
     let products = []
     api.getProductList(this.data.productCurrent, searchKey)
-    .then(res => {
-      products = res.data.data
-      if (products.length === 0) {
-        this.setData({ footerShow: true })
-      }
-      this.setData({ 
-        products: products,
-        productCurrent: this.data.productCurrent + 1
+      .then(res => {
+        products = res.data.data
+        if (products.length === 0) {
+          this.setData({
+            footerShow: true
+          })
+        }
+        this.setData({
+          products: products,
+          productCurrent: this.data.productCurrent + 1
+        })
+      }).catch(err => {
+        // 失败回调
       })
-    }).catch(err => {
-      // 失败回调
-    })
     this.setData({
       windowHeight: systemInfo.windowHeight,
       cartInfo: globalData.cartInfo,
@@ -321,7 +317,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    
+
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -329,7 +325,7 @@ Page({
   onHide() {
 
   },
-  onBackPress: function() {
+  onBackPress: function () {
     // 处理用户点击返回按钮或滑动返回手势
     wx.navigateBack();
     return true; // 阻止默认的返回行为

@@ -3,6 +3,11 @@
 }
 
 /* 评价模块 */
+.top-con {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .user-info {
   display: flex;
   align-items: center;

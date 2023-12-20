@@ -18,7 +18,7 @@ const request = function (url, options) {
             wx.navigateTo({
               url: '/pages/user/login/login',
             })
-          }, 1000);
+          }, 500);
           return 
         } else if (res.data.status === '500') {
           Toast.fail(res.data.data[0])

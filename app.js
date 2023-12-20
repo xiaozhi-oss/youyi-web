@@ -6,8 +6,8 @@ App({
   },
   globalData: {
     baseUrl: 'http://localhost:8888/youyi',
-    token: 'aecd782c-d7ed-4612-9991-feb2ffbfcc35',
-    isStoreShow: false,
+    token: '',
+    isStoreShow: true,
     selectMainicurist: {
       id: '',
       name: ''

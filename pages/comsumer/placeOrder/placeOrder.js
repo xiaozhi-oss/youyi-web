@@ -74,7 +74,7 @@ Page({
   },
   onSubmitOrder(e) {
     Toast.loading({
-      message: '加载中...',
+      message: '正在支付...',
       forbidClick: true,
       loadingType: 'spinner',
     });
@@ -99,7 +99,7 @@ Page({
           wx.redirectTo({
             url: '/pages/comsumer/paymentSuccess/paymentSuccess',
           })
-        }, 1000);
+        }, 500);
       })
   },
   /**

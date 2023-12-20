@@ -28,7 +28,8 @@
               <van-icon color="#ECCFB9" name="underway-o" />
               <text class="text">{{ item.date }}</text>
             </view>
-            <van-button wx:if="{{ item.status === 0 }}" data-id="{{ item.id }}" bind:click="onViewInfo" type="warning" size="small" round plain>查看</van-button>
+            <van-button wx:if="{{ item.status === 1 }}" data-id="{{ item.id }}" bind:click="onComplete" type="warning" size="small" round plain>完成</van-button>
+            <van-button wx:if="{{ item.status === 0 }}" data-id="{{ item.id }}" bind:click="onRefuse" type="warning" size="small" round plain>拒绝</van-button>
           </view>
         </view>
       </block>

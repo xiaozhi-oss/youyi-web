@@ -1,9 +1,12 @@
+import api from '@utils/api';
 import Notify from '@vant/weapp/notify/notify';
 import Toast from '@vant/weapp/toast/toast';
 Page({
   data: {
     projectId: '',
     date: '',
+    username: '',
+    phoneNumber: '',
     isManicuristShow: false,
     isWorkShow: false,
     isDateShow: false,
@@ -12,7 +15,8 @@ Page({
     active: 0,
     // 选择的美甲师
     selectMainicurist: {},
-    manicuristList: []
+    manicuristList: [],
+    workList: []
   },
   // 时间 popup 触发事件
   onDatePopupDisplay() {
@@ -34,19 +38,29 @@ Page({
 
   // 美甲师 popup 触发事件
   onToManicuristPage(e) {
-    this.openAndCloseManicuristPopup()
+    api.getManicuristtList()
+    .then(res => {
+      const manicuristList = res.data.data
+      this.setData({
+        manicuristList: manicuristList,
+      })
+    })
+    this.setData({
+      isManicuristShow: true,
+    })
   },
   onCloseManicuristPopup(e) {
-    this.openAndCloseManicuristPopup()
-  },
-  openAndCloseManicuristPopup() {
     this.setData({
-      isManicuristShow: !this.data.isManicuristShow,
+      isManicuristShow: false,
     })
   },
   onShowWorkPopup(e) {
+    const id = e.currentTarget.dataset.id
+    const manicuristList = this.data.manicuristList
+    const manicurist = manicuristList.find(m => m.id === id)
     this.setData({
-      isWorkShow: true
+      isWorkShow: true,
+      workList: manicurist.workList
     })
   },
   onCloseWorkShowPopup(e) {
@@ -67,38 +81,10 @@ Page({
       isManicuristShow: false,
     })
   },
-  onScrollToLower(e) {
-    if (!this.data.loading && !this.data.isFooterShow) {
-      this.setData({ loading: true });
-      setTimeout(() => {
-        this.setData({ 
-          loading: false,
-        });
-      }, 1000);
-      const manicuristList = this.data.manicuristList
-      setTimeout(() => {
-        for(let i=0; i < 10; i++) {
-          manicuristList.push({
-            id: 1,
-            name: '离大谱',
-            employmentTime: '7',
-            positiveReviews: 301,
-            reservationCount: 12,
-            portfolioCount: 34,
-            avgUrl: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Snuggles'
-          })
-        }
-        this.setData({
-          manicuristList: manicuristList
-        })
-      }, 1000);
-    }
-  },
-
   // 确认触发
   onDermine(e) {
-    const name = this.data.name
-    const phone = this.data.name
+    const name = this.data.username
+    const phone = this.data.phoneNumber
     const mainicuristId = this.data.selectMainicurist.id
     const date = this.data.date
     if (name !== '' && phone !== '' && mainicuristId !== '' && date !== '') {
@@ -107,6 +93,7 @@ Page({
         phone: phone,
         mainicuristId: mainicuristId,
         date: date,
+        projectId: this.data.projectId
       }
       // 发送请求
       Toast.loading({
@@ -114,12 +101,13 @@ Page({
         forbidClick: true,
         loadingType: 'spinner',
       });
-      setTimeout(() => {
-        Toast.success('预约成功');
-      }, 1000);
-      setTimeout(() => {
-        wx.navigateBack()
-      }, 2000);
+      api.addOrUpdateAppointmentOrder(reservationInfo)
+      .then(res => {
+        Toast.success("预约成功");
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 1000);
+      })
     } else {
       // 弹出错误提示
       Notify({ type: 'warning', message: '表单项不能有空的' });

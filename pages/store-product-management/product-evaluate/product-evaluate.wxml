@@ -1,12 +1,17 @@
 <!--pages/store-product-management/product-evaluate/product-evaluate.wxml-->
 <view class="container">
-
+  <scroll-view bindscrolltolower="onScrollToLower" scroll-y="true" style="height: {{windowHeight}}px;">
   <view class="reviews">
     <view class="items">
       <view class="item" wx:for="{{ reviewList }}" wx:key="id">
-        <view class="user-info">
-          <van-image round width="4rem" height="4rem" src="{{ item.userInfo.url }}" />
-          <text>{{ item.userInfo.username }}</text>
+        <view class="top-con">
+          <view class="user-info">
+          <van-image round width="4rem" height="4rem" src="{{ item.avgUrl }}" />
+          <text>{{ item.username }}</text>
+        </view>
+        <view class="deleteBtn">
+          <van-button bind:click="onDeleteComment" round plain type="danger">删除</van-button>
+        </view>
         </view>
         <view class="item-content">
           <view class="product-detail">
@@ -24,10 +29,11 @@
       </view>
     </view>
     <view class="reviews-footer">
-      <text wx:if="{{ isReviewFooterShow }}">诶呀，到底了呀~~~</text>
-      <van-loading wx:if="{{ reviewLoading }}" color="#FF9393" type="spinner" size="30px">
+      <text wx:if="{{ footerShow }}">诶呀，到底了呀~~~</text>
+      <van-loading wx:if="{{ loading }}" color="#FF9393" type="spinner" size="30px">
         <text style="color: #FF9393;">加载中...</text>
       </van-loading>
     </view>
   </view>
+</scroll-view>
 </view>

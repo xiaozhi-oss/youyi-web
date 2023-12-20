@@ -43,7 +43,7 @@ Page({
   onLoad(options) {
     const systemInfo = wx.getSystemInfoSync();
     const status = options.status
-    api.getOrderList(1, status)
+    api.getAllOrderList(1, status)
       .then(res => {
         const orderList = res.data.data
         var footerShow = false
